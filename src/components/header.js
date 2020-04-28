@@ -83,7 +83,6 @@ const IconButton = styled.button`
   }
 `;
 
-// TODO: Add a linter
 const Header = ({ siteTitle }) => (
     <HeaderWrapper>
         <HeaderContent>
