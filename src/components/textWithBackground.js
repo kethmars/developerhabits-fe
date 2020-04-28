@@ -25,8 +25,10 @@ const TextWithBackground = ({ children }) => {
         return null;
     }
 
-    return children
-        .filter(child => typeof child === 'string')
+    const textParts = (Array.isArray(children) && children) || [ children ];
+
+    return textParts
+        .filter(text => typeof text === 'string')
         .map(text => (
             <>
                 <InlineBackground key={text}>{text}</InlineBackground><br/>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLOR_CYAN_LIGHT } from '../constants';
 import TextWithBackground from './textWithBackground';
 
-// TODO: Try Adrians approach
+// TODO: Try Adrian's approach
 const CardWrapper = styled.div`
     width: calc(100% + 80px);
     margin-left: -80px;
@@ -58,8 +58,8 @@ const FeaturedArticleCard = () => (
         <CardContent>
             <Title>
                 <TextWithBackground>
-                    This is the title <br/>
-                    for our article
+                    This is the title for our<br/>
+                    This is the title for our article
                 </TextWithBackground>
             </Title>
 
