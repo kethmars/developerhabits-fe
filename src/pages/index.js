@@ -7,8 +7,6 @@ import Section from '../components/section';
 import FeaturedArticleCard from '../components/featuredArticleCard';
 
 import { useStaticQuery, graphql } from 'gatsby';
-import Img from 'gatsby-image';
-
 
 const FeaturedArticleWrapper = styled.div`
     width: 100%;

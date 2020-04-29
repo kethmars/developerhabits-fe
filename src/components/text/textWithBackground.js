@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLOR_BRIGHT_CYAN, COLOR_CYAN } from '../constants';
+import { COLOR_CYAN } from '../../constants';
 
 const InlineBackground = styled.span`
     position: relative;

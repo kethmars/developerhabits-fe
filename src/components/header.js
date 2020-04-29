@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLUMN_GAP, PAGE_WIDTH, COLOR_BRIGHT_CYAN } from '../constants';
+import { COLUMN_GAP, PAGE_WIDTH, COLOR_BRIGHT_CYAN, COLOR_BLUE } from '../constants';
 
 import LogoImage from '../images/logo.svg';
 import SearchIcon from '../images/icons/search.svg';
@@ -26,7 +26,8 @@ const HeaderContent = styled.div`
 `;
 
 const Logo = styled.img`
-  margin: 0;
+  margin-top: 5px;
+  margin-bottom: 0;
 `;
 
 const MenuWrapper = styled.nav`

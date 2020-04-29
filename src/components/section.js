@@ -8,6 +8,7 @@ const SectionWrapper = styled.div`
     width: 100%;
     height: auto;
     display: block;
+    padding: 40px 0;
 `;
 
 const SectionContent = styled.div`
