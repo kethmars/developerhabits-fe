@@ -29,10 +29,8 @@ const TextWithBackground = ({ children }) => {
 
     return textParts
         .filter(text => typeof text === 'string')
-        .map(text => (
-            <>
-                <InlineBackground key={text}>{text}</InlineBackground><br/>
-            </>
+        .map((text, index) => (
+            <InlineBackground key={text}>{text}</InlineBackground>
         ));
 };
 

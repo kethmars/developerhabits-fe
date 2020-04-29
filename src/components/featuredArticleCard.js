@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { COLOR_CYAN_LIGHT, COLOR_BLUE } from '../constants';
+import { COLOR_CYAN_LIGHT, COLOR_BLUE, COLOR_LIGHT_GRAY } from '../constants';
 import TextWithBackground from './text/textWithBackground';
 
 import TextWithIcon from './text/textWithIcon';
@@ -28,12 +28,13 @@ const CardWrapper = styled.div`
 
 const CardContent = styled.div`
     display: block;
-    width: 100%;
-    background-color: #fff;
-    padding: 50px;
-    box-sizing: border-box;
-    z-index: 1;
     position: relative;
+    width: 100%;
+    padding: 50px;
+    z-index: 1;
+    background-color: #fff;
+    border: solid 1px ${COLOR_LIGHT_GRAY};
+    box-sizing: border-box;
 `;
 
 const Intro = styled.p`

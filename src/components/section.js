@@ -17,8 +17,19 @@ const SectionContent = styled.div`
     margin: 0 auto;
 `;
 
-const Section = ({ children }) => (
+const SectionTitle = styled.h2`
+    font-size: 1.625rem;
+    font-family: 'Roboto';
+    font-weight: 300;
+    display: block;
+    margin: 30px auto;
+    text-align: center;
+`;
+
+const Section = ({ children, title }) => (
     <SectionWrapper>
+        { title && <SectionTitle>{ title }</SectionTitle> }
+
         <SectionContent>
             { children }
         </SectionContent>
