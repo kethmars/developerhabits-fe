@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
-import { COLUMN_GAP, PAGE_WIDTH, COLOR_BRIGHT_CYAN, COLOR_BLUE } from '../constants';
+import { COLUMN_GAP, PAGE_WIDTH, COLOR_CYAN } from '../constants';
 
 import LogoImage from '../images/logo.svg';
 import SearchIcon from '../images/icons/search.svg';
@@ -64,7 +64,7 @@ const MenuWrapper = styled.nav`
       bottom: 15px;
       width: calc(100% - 20px);
       height: 12px;
-      background-color: ${COLOR_BRIGHT_CYAN};
+      background-color: ${COLOR_CYAN};
       z-index: -1;
     }
   }
