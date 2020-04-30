@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import {  COLOR_CYAN_DARK } from '../../constants';
+import {  COLOR_CYAN_DARK, COLOR_CYAN } from '../../constants';
 
 export const ColorfulTag = styled.span`
     font-size: 1rem;
@@ -8,6 +8,13 @@ export const ColorfulTag = styled.span`
     font-weight: 700;
     color: ${props => props.color || COLOR_CYAN_DARK};
     text-decoration: none;
+`;
+
+export const InlineBackground = styled.span`
+    text-decoration: none;
+    background-repeat: no-repeat;
+    background-position: 0px bottom;
+    background-image: linear-gradient(180deg,transparent 70%, ${COLOR_CYAN} 0);
 `;
 
 export const H1Title = styled.h1`

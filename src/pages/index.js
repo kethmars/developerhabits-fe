@@ -11,8 +11,6 @@ import FeaturedArticleCard from '../components/featuredArticleCard';
 import ArticleCard from '../components/articleCard';
 import Tag from '../components/text/tag';
 
-// import Img from 'gatsby-image';
-
 const FeaturedArticleWrapper = styled.div`
     width: 100%;
     display: flex;
@@ -55,22 +53,15 @@ const FeaturedImage = () => {
 
     // return <Img fluid={data.file.childImageSharp.fluid} />;
 };
-
-const FeaturedArticle = () => {
-    return (   
-        <FeaturedArticleWrapper>
-            <FeaturedImage />
-            <FeaturedArticleCard />
-        </FeaturedArticleWrapper>
-    );
-};
-
 const IndexPage = () => (
     <Layout>
         <SEO title="Home" />
         
         <Section>
-            <FeaturedArticle />
+            <FeaturedArticleWrapper>
+                <FeaturedImage />
+                <FeaturedArticleCard />
+            </FeaturedArticleWrapper>
         </Section>
         
         <Section title="Latest articles">

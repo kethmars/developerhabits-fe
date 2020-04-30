@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { COLOR_CYAN_LIGHT, COLOR_BLUE, COLOR_LIGHT_GRAY } from '../constants';
-import TextWithBackground from './text/textWithBackground';
-
 import TextWithIcon from './text/textWithIcon';
-import { ColorfulTag, H1Title } from './text/typography';
+import { ColorfulTag, H1Title, InlineBackground } from './text/typography';
 
 const CardWrapper = styled.div`
     width: calc(100% + 80px);
@@ -102,11 +100,11 @@ const FeaturedArticleCard = () => (
         <CardContent>
             <Icon/>
 
-            <H1Title>
-                <TextWithBackground>
-                    Generalist vs specialists:<br/>
+            <H1Title style={{ maxWidth: '75%' }}>
+                <InlineBackground>
+                    Generalist vs specialists:
                     video coming soon
-                </TextWithBackground>
+                </InlineBackground>
             </H1Title>
 
             <Intro>
