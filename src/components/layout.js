@@ -18,9 +18,9 @@ const Layout = ({ children }) => {
     const data = useStaticQuery(graphql`
         query SiteTitleQuery {
             site {
-            siteMetadata {
-                title
-            }
+                siteMetadata {
+                    title
+                }
             }
         }
     `);
@@ -28,6 +28,7 @@ const Layout = ({ children }) => {
     return (
         <>
             <Header siteTitle={data.site.siteMetadata.title} />
+            { children }
         </>
     );
 };

@@ -5,7 +5,7 @@ module.exports = {
     __PATH_PREFIX__: true,
   },
   extends: `react-app`,
-    "rules": {
+    rules: {
       "no-unexpected-multiline": ERROR,
       // Allowed a getter without setter, but all setters require getters
       "accessor-pairs": [ ERROR, {
@@ -48,6 +48,6 @@ module.exports = {
       "sort-vars": OFF,
       "space-before-blocks": [ WARN, "always" ],
       "space-before-function-paren": [ WARN, "never" ],
-      "no-console": [ ERROR, { "allow": ["warn", "error"] } ],
+      // "no-console": [ ERROR, { "allow": ["warn", "error"] } ],
     }
 }
