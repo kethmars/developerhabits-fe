@@ -33,7 +33,7 @@ const TextInput = styled.input`
     padding: 20px;
     box-sizing: border-box;
     outline: none;
-    margin-top: 10px;
+    margin-top: 30px;
 `;
 
 const SubmitButton = styled.button`
@@ -95,7 +95,10 @@ const SubscriptionBlock = () => {
 
     return (
         <SubscriptonWrapper>
-            <H1Title as="h2">
+            <H1Title
+                as="h2"
+                style={{ margin: '0px' }}
+            >
                 <InlineBackground>
                     Subscribe to get the latest news, yay!
                 </InlineBackground>
