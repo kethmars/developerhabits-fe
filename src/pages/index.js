@@ -2,7 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { COLUMN_GAP, COLOR_BLUE, COLOR_YELLOW, COLOR_GREEN } from '../constants';
+import {
+    COLUMN_GAP,
+    COLOR_BLUE,
+    COLOR_YELLOW,
+    COLOR_GREEN,
+    COLOR_CYAN_LIGHT,
+    COLOR_CYAN
+} from '../constants';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -86,6 +93,34 @@ const IndexPage = () => (
                     intro="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s…"
                     extra="04-03-2020, Kethmar Salumets"
                     tag={<Tag offsetColor={COLOR_YELLOW}>#tutorials</Tag>}
+                />
+            </ArticlesWrapper>
+        </Section>
+        <Section title="Featured articles" background={COLOR_CYAN_LIGHT}>
+            <ArticlesWrapper>
+                <ArticleCard
+                    imageSrc="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
+                    title="Pair programming - learn, teach and code at the same time"
+                    intro="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s…"
+                    extra="04-03-2020, Kethmar Salumets"
+                    tag={<Tag offsetColor={COLOR_BLUE}>#growthMindset</Tag>}
+                    offsetColor={COLOR_CYAN}
+                />
+                <ArticleCard
+                    imageSrc="https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg"
+                    title="Pair programming - learn, teach and code at the same time"
+                    intro="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s…"
+                    extra="04-03-2020, Kethmar Salumets"
+                    tag={<Tag offsetColor={COLOR_GREEN}>#devLifestyle</Tag>}
+                    offsetColor={COLOR_CYAN}
+                />
+                <ArticleCard
+                    imageSrc="https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF-1024-80.jpg"
+                    title="Pair programming - learn, teach and code at the same time"
+                    intro="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s…"
+                    extra="04-03-2020, Kethmar Salumets"
+                    tag={<Tag offsetColor={COLOR_YELLOW}>#tutorials</Tag>}
+                    offsetColor={COLOR_CYAN}
                 />
             </ArticlesWrapper>
         </Section>

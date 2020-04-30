@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import { COLOR_LIGHT_GRAY, COLOR_DARK_BLUE } from '../constants';
 
-import Tag from './text/tag';
-
 const CardWrapper = styled.div`
     display: block;
     width: 100%;
@@ -15,7 +13,7 @@ const CardWrapper = styled.div`
         position: absolute;
         width: 100%;
         height: 100%;
-        background-color: ${COLOR_LIGHT_GRAY};
+        background-color: ${props => props.offsetColor || COLOR_LIGHT_GRAY};
         top: 10px;
         left: 10px;
     }
@@ -25,7 +23,7 @@ const CardInnerWrapper = styled.div`
     position: relative;
     display: block;
     background-color: #fff;
-    border: solid 1px ${COLOR_LIGHT_GRAY};
+    border: ${props => props.disableBorder || `solid 1px ${COLOR_LIGHT_GRAY}`};
 `;
 
 const CardImage = styled.div`
@@ -74,7 +72,8 @@ const ArticleCard = ({
     title,
     intro,
     extra,
-    imageSrc
+    imageSrc,
+    offsetColor
 }) => {
     const getCardIntro = (text) => {
         const textLength = 125;
@@ -90,17 +89,19 @@ const ArticleCard = ({
         return text && `${text.substring(0, textLength)}...`;
     };
 
-    return (<CardWrapper>
-        <CardInnerWrapper>
-            { imageSrc && <CardImage src={imageSrc || ''} /> }
-            <CardContent>
-                { tag }
-                { title && <CardTitle>{ title }</CardTitle> }
-                { intro && <CardIntro>{ getCardIntro(intro) }</CardIntro> }
-                { extra && <CardExtraData>{ extra }</CardExtraData> }
-            </CardContent>
-        </CardInnerWrapper>
-    </CardWrapper>);
+    return (
+        <CardWrapper offsetColor={offsetColor}>
+            <CardInnerWrapper disableBorder={!!offsetColor}>
+                { imageSrc && <CardImage src={imageSrc || ''} /> }
+                <CardContent>
+                    { tag }
+                    { title && <CardTitle>{ title }</CardTitle> }
+                    { intro && <CardIntro>{ getCardIntro(intro) }</CardIntro> }
+                    { extra && <CardExtraData>{ extra }</CardExtraData> }
+                </CardContent>
+            </CardInnerWrapper>
+        </CardWrapper>
+    );
 };
 
 export default ArticleCard;
