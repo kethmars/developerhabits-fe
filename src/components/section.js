@@ -1,21 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { PAGE_WIDTH, COLOR_CYAN_LIGHT, COLOR_LIGHT_GRAY_2 } from '../constants';
-
-const SECTION_TRANSPARENT = 'section-transparent';
-const SECTION_GRAY = 'section-gray';
-const SECTION_CYAN = 'section-blue';
-const colorToClass = [
-    {
-        color: COLOR_LIGHT_GRAY_2,
-        class: SECTION_GRAY
-    },
-    {
-        color: COLOR_CYAN_LIGHT,
-        class: SECTION_CYAN
-    }
-];
+import {
+    PAGE_WIDTH,
+    PAGE_WIDTH_NARROW,
+    COLOR_CYAN_LIGHT,
+    COLOR_LIGHT_GRAY_2,
+    SECTION_TRANSPARENT,
+    SECTION_GRAY,
+    SECTION_CYAN
+} from '../constants';
 
 const SectionWrapper = styled.div`
     width: 100%;
@@ -33,7 +27,7 @@ const SectionWrapper = styled.div`
 
 const SectionContent = styled.div`
     width: auto;
-    max-width: ${PAGE_WIDTH}px;
+    max-width: ${props => props.narrow ? PAGE_WIDTH_NARROW : PAGE_WIDTH}px;
     margin: 0 auto;
 `;
 
@@ -46,9 +40,20 @@ const SectionTitle = styled.h2`
     text-align: center;
 `;
 
+const colorToClass = [
+    {
+        color: COLOR_LIGHT_GRAY_2,
+        class: SECTION_GRAY
+    },
+    {
+        color: COLOR_CYAN_LIGHT,
+        class: SECTION_CYAN
+    }
+];
+
 const getSectionColor = (color) => colorToClass.find(map => map.color === color);
 
-const Section = ({ children, title, bgColor }) => {
+const Section = ({ children, title, bgColor, narrow, style }) => {
     const bgColorInfo = getSectionColor(bgColor);
     const colorClass = (bgColorInfo && bgColorInfo.class) || SECTION_TRANSPARENT;
 
@@ -56,10 +61,11 @@ const Section = ({ children, title, bgColor }) => {
         <SectionWrapper
             background={bgColor}
             className={colorClass}
+            style={style}
         >
             { title && <SectionTitle>{ title }</SectionTitle> }
 
-            <SectionContent>
+            <SectionContent narrow={narrow}>
                 { children }
             </SectionContent>
         </SectionWrapper>
