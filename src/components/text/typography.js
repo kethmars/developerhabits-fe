@@ -18,6 +18,7 @@ export const InlineBackground = styled.span`
 `;
 
 export const H1Title = styled.h1`
+    font-size: 2.125rem;
     width: auto;
     height: auto;
     display: block;
