@@ -14,7 +14,13 @@ export const InlineBackground = styled.span`
     text-decoration: none;
     background-repeat: no-repeat;
     background-position: 0px bottom;
-    background-image: linear-gradient(180deg,transparent 70%, ${COLOR_CYAN} 0);
+    background-color: ${COLOR_CYAN};
+    box-shadow: #fff 0 0.7em inset;
+    transition: 0.1s ease all;
+
+    &:hover, &--active {
+        box-shadow: #fff 0 0 inset;
+    }
 `;
 
 export const H1Title = styled.h1`

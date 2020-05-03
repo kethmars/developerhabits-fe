@@ -29,6 +29,8 @@ const SectionContent = styled.div`
     width: auto;
     max-width: ${props => props.narrow ? PAGE_WIDTH_NARROW : PAGE_WIDTH}px;
     margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
 `;
 
 const SectionTitle = styled.h2`

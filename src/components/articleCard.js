@@ -34,6 +34,21 @@ const CardImage = styled.div`
     background-image: url(${props => props.src});
     background-position: center;
     background-size: cover;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        transition: 0.2s ease all;
+    }
+
+    &:hover::before {
+        opacity: 0.2;
+    }
 `;
 
 const CardContent = styled.div`
@@ -91,7 +106,7 @@ const ArticleCard = ({
 
     return (
         <CardWrapper offsetColor={offsetColor}>
-            <CardInnerWrapper disableBorder={!!offsetColor}>
+            <CardInnerWrapper>
                 { imageSrc && <CardImage src={imageSrc || ''} /> }
                 <CardContent>
                     { tag }

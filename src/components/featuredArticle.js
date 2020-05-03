@@ -18,7 +18,21 @@ const FeaturedArticleImage = styled.div`
     background-image: url(${props => props.src});
     background-size: cover;
     background-position: center;
-    background-color: #000;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        transition: 0.2s ease all;
+    }
+
+    &:hover::before {
+        opacity: 0.1;
+    }
 `;
 
 const IndexPage = () => (

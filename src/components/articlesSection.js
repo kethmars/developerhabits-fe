@@ -25,7 +25,7 @@ const ArticlesWrapper = styled.div`
 
 const articleCards = [
     {
-        imageSrc: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
+        imageSrc: 'https://www.bloomberg.com/graphics/2018-almost-junk-credit-ratings/img/lede-4.jpg',
         title: '1 Pair programming - learn, teach and code at the same time',
         intro: `Lorem Ipsum is simply dummy text
         of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy

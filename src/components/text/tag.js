@@ -7,6 +7,7 @@ const TagWrapper = styled.div`
     width: auto;
     display: inline-block;
     position: relative;
+    cursor: pointer;
 
     &::before {
         content: "";
@@ -16,6 +17,12 @@ const TagWrapper = styled.div`
         background-color: ${props => props.offsetColor || COLOR_CYAN};
         top: 7px;
         left: 7px;
+        transition: 0.2s ease all;
+    }
+
+    &:hover::before {
+        top: 12px;
+        left: 12px;
     }
 `;
 

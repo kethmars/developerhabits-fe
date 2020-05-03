@@ -100,7 +100,7 @@ const FeaturedArticleCard = () => (
         <CardContent>
             <Icon/>
 
-            <H1Title style={{ maxWidth: '75%' }}>
+            <H1Title style={{ maxWidth: '80%' }}>
                 <InlineBackground>
                     Generalist vs specialists:
                     video coming soon

@@ -14,6 +14,8 @@ const HeaderWrapper = styled.header`
   box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box;
 `;
 
 const HeaderContent = styled.div`
