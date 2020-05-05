@@ -35,9 +35,14 @@ const FeaturedArticleImage = styled.div`
     }
 `;
 
-const IndexPage = () => (
+const IndexPage = ({
+    image,
+    content,
+    categories,
+    authorName
+}) => (
     <FeaturedArticleWrapper>
-        <FeaturedArticleImage src={featuredImage} />
+        <FeaturedArticleImage />
         <FeaturedArticleCard />
     </FeaturedArticleWrapper>
 );

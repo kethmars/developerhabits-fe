@@ -107,7 +107,7 @@ const ArticleCard = ({
     return (
         <CardWrapper offsetColor={offsetColor}>
             <CardInnerWrapper>
-                { imageSrc && <CardImage src={imageSrc || ''} /> }
+                <CardImage src={imageSrc || ''} />
                 <CardContent>
                     { tag }
                     { title && <CardTitle>{ title }</CardTitle> }

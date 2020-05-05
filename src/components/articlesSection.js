@@ -23,53 +23,30 @@ const ArticlesWrapper = styled.div`
     grid-column-gap: ${COLUMN_GAP}px;
 `;
 
-const articleCards = [
-    {
-        imageSrc: 'https://www.bloomberg.com/graphics/2018-almost-junk-credit-ratings/img/lede-4.jpg',
-        title: '1 Pair programming - learn, teach and code at the same time',
-        intro: `Lorem Ipsum is simply dummy text
-        of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s…`,
-        extra: '04-03-2020, Kethmar Salumets',
-        tagOffsetColor: COLOR_YELLOW,
-        tagText: '#tutorials'
-    },
-    {
-        imageSrc: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
-        title: 'Pair programming - learn, teach and code at the same time',
-        intro: `Lorem Ipsum is simply dummy text
-        of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s…`,
-        extra: '04-03-2020, Kethmar Salumets',
-        tagOffsetColor: COLOR_YELLOW,
-        tagText: '#tutorials'
-    },
-    {
-        imageSrc: 'https://cdn-prod.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
-        title: 'Pair programming - learn, teach and code at the same time',
-        intro: `Lorem Ipsum is simply dummy text
-        of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
-        text ever since the 1500s…`,
-        extra: '04-03-2020, Kethmar Salumets',
-        tagOffsetColor: COLOR_YELLOW,
-        tagText: '#tutorials'
-    },
-];
-
 const getArticleCards = (articles = [], offsetColor) => (
-    articles.map(article => (
+    articles.slice(0, 3).map(({
+        title,
+        id,
+        user,
+        featuredImage,
+        content,
+        creationDate,
+        categories
+    }) => (
         <ArticleCard
-            imageSrc={article.imageSrc}
-            title={article.title}
-            intro={article.intro}
-            extra={article.extra}
-            tag={<Tag offsetColor={article.tagOffsetColor}>{article.tagText}</Tag>}
+            key={id}
+            imageSrc={featuredImage && featuredImage.publicURL}
+            title={title}
+            intro={content}
+            // extra={article.extra}
+            tag={<Tag offsetColor={null}>{categories && categories[0].name}</Tag>}
             offsetColor={offsetColor}
         />
     ))
 );
 
 const ArticlesSection = ({
+    articles,
     theme = 'white',
     title
 }) => {
@@ -82,7 +59,7 @@ const ArticlesSection = ({
         <Section title={title} bgColor={bgColor}>
             <ArticlesWrapper>
                 {
-                    getArticleCards(articleCards, offsetColor)
+                    getArticleCards(articles, offsetColor)
                 }
             </ArticlesWrapper>
         </Section>

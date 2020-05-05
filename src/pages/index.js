@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 
 import { COLOR_LIGHT_GRAY_2 } from '../constants';
 
@@ -9,21 +10,60 @@ import SubscriptionBlock from '../components/subscriptionBlock.js';
 import ArticlesSection from '../components/articlesSection';
 import FeaturedArticle from '../components/featuredArticle';
 
-const IndexPage = () => (
-    <Layout>
-        <SEO title="Home" />
-        
-        <Section>
-            <FeaturedArticle />
-        </Section>
+const IndexPage = ({ data }) => {
+    const articles = data.allStrapiArticles.nodes;
+    const featuredArticle = articles.find(article => (
+        article.categories.some(c => c.name === 'featured')
+    ));
 
-        <ArticlesSection theme="white" title="Latest articles"/>
-        <ArticlesSection theme="blue" title="Featured articles"/>
+    return (
+        <Layout>
+            <SEO title="Home" />
 
-        <Section bgColor={COLOR_LIGHT_GRAY_2}>
-            <SubscriptionBlock />
-        </Section>
-    </Layout>
-);
+            <Section>
+                <FeaturedArticle article={featuredArticle} />
+            </Section>
+
+            <ArticlesSection
+                articles={articles}
+                theme="white"
+                title="Latest articles"
+            />
+            <ArticlesSection
+                articles={articles}
+                theme="blue"
+                title="Featured articles"
+            />
+
+            <Section bgColor={COLOR_LIGHT_GRAY_2}>
+                <SubscriptionBlock />
+            </Section>
+        </Layout>
+    );
+};
+
+export const query = graphql`
+    query MyQuery {
+        allStrapiArticles {
+            nodes {
+                title,
+                id,
+                user {
+                    displayName
+                },
+                featuredImage {
+                    publicURL
+                },
+                content,
+                creationDate
+                categories {
+                    name
+                    id
+                }
+            }
+        }
+    }
+`;
+
 
 export default IndexPage;
