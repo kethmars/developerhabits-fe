@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 
 import { COLOR_CYAN_LIGHT, COLOR_BLUE, COLOR_LIGHT_GRAY } from '../constants';
 import TextWithIcon from './text/textWithIcon';
@@ -75,48 +75,49 @@ const CategoryItem = ({ to, children, color }) => (
     </li>
 );
 
-const Icon = () => {
-    const data = useStaticQuery(graphql`
-        query {
-            file(relativePath: { eq: "author.png" }) {
-                childImageSharp {
-                    fluid(maxWidth: 100) {
-                        ...GatsbyImageSharpFluid
-                    }
-                }
-            }
-        }
-    `);
-
-    return <TextWithIcon
-        iconSrc={data.file.childImageSharp.fluid.src}
-        text="04.08.2014, Kethmar Salumets"
-        alt="cool"
-    />;
-};
-
-const FeaturedArticleCard = () => (
+const FeaturedArticleCard = ({
+    title,
+    intro,
+    categories,
+    author,
+    creationDate,
+    slug
+}) => (
     <CardWrapper>
         <CardContent>
-            <Icon/>
+            <TextWithIcon
+                iconSrc={author?.avatar?.publicURL}
+                text={`${creationDate}, ${author.displayName || ''}`}
+                alt="cool"
+            />
 
+            
             <H1Title style={{ maxWidth: '80%' }}>
-                <InlineBackground>
-                    Generalist vs specialists:
-                    video coming soon
+                <InlineBackground
+                    to={`/articles/${slug}`}
+                    as={Link}
+                    withHover
+                >
+                    { title }
                 </InlineBackground>
             </H1Title>
 
             <Intro>
-                Lorem Ipsum is simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum
-                has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took…
+                { intro }
             </Intro>
 
             <Categories>
-                <CategoryItem to="#">#growthMindset</CategoryItem>
-                <CategoryItem to="#" color={COLOR_BLUE}>#habits</CategoryItem>
+                {
+                    categories.map(category => (
+                        <CategoryItem
+                            key={category.id}
+                            color={category.color}
+                            to="#"
+                        >
+                            #{ category.name }
+                        </CategoryItem>
+                    ))
+                }
             </Categories>
         </CardContent>
     </CardWrapper>

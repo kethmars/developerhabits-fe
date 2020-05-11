@@ -1,15 +1,48 @@
-exports.createPages = ({ actions: { createPage } }) => {
-    const products = require('./data/products.json');
+const path = require(`path`);
 
-    products.forEach(product => {
+exports.createPages = async({
+    actions: { createPage },
+    graphql }
+) => {
+    const { data } = await graphql(`
+        query {
+            allStrapiArticles {
+                nodes {
+                    title,
+                    slug,
+                    id,
+                    user {
+    
+                        displayName,
+                        avatar {
+                            publicURL
+                        }
+                    },
+                    featuredImage {
+                        publicURL
+                    },
+                    content,
+                    creationDate
+                    categories {
+                        name
+                        id
+                    }
+                }
+            }
+        }
+    `);
+    
+    //TODO: SET UP Debugger;
+    if (!data.allStrapiArticles.nodes.length) {
+        return;
+    }
+
+    data.allStrapiArticles.nodes.forEach(article => {
         createPage({
-            path: `/product/${product.slug}/`,
-            component: require.resolve('./src/components/articleCard.js'),
+            path: `/articles/${article.slug}`,
+            component: require.resolve('./src/templates/article.js'),
             context: {
-                title: product.title,
-                description: product.description,
-                image: product.image,
-                price: product.price,
+                ...article
             },
         });
     });

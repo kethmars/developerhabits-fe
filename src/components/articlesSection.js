@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import {
@@ -31,7 +32,8 @@ const getArticleCards = (articles = [], offsetColor) => (
         featuredImage,
         content,
         creationDate,
-        categories
+        categories,
+        slug
     }) => (
         <ArticleCard
             key={id}
@@ -39,13 +41,15 @@ const getArticleCards = (articles = [], offsetColor) => (
             title={title}
             intro={content}
             // extra={article.extra}
-            tag={<Tag offsetColor={null}>{categories && categories[0].name}</Tag>}
+            tag={<Tag offsetColor={categories[0]?.color}>{categories && categories[0].name}</Tag>}
             offsetColor={offsetColor}
+            slug={slug}
         />
     ))
 );
 
 const ArticlesSection = ({
+    data,
     articles,
     theme = 'white',
     title
@@ -67,3 +71,27 @@ const ArticlesSection = ({
 };
 
 export default ArticlesSection;
+export const query = graphql`
+  fragment ArticlesSectionFragment on StrapiArticles {
+    title,
+    id,
+    user {
+
+        displayName,
+        avatar {
+            publicURL
+        }
+    },
+    featuredImage {
+        publicURL
+    },
+    content,
+    creationDate
+    categories {
+        color
+        name
+        id
+    },
+    slug
+  }
+`;
