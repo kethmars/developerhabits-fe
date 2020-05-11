@@ -1,3 +1,7 @@
+require('dotenv').config({  
+    path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
     siteMetadata: {
         title: 'DeveloperHabits',
@@ -36,6 +40,18 @@ module.exports = {
                 name: 'products',
                 path: './data', 
             },
-        }
+        },
+        {
+            resolve: 'gatsby-source-strapi',
+            options: {
+                apiURL: process.env.API_URL || 'http://localhost:1337',
+                contentTypes: [
+                    'articles',
+                    'users',
+                    'categories',
+                ],
+                queryLimit: 1000,
+            },
+        },
     ]
 };

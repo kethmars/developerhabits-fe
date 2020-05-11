@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 import { COLOR_LIGHT_GRAY, COLOR_DARK_BLUE } from '../constants';
 
@@ -23,6 +24,7 @@ const CardInnerWrapper = styled.div`
     position: relative;
     display: block;
     background-color: #fff;
+    height: 100%;
     border: ${props => props.disableBorder || `solid 1px ${COLOR_LIGHT_GRAY}`};
 `;
 
@@ -63,6 +65,11 @@ const CardTitle = styled.h3`
     display: inline-block;
     margin-top: 30px;
     margin-bottom: 0;
+    
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
 `;
 
 const CardIntro = styled.p`
@@ -88,7 +95,8 @@ const ArticleCard = ({
     intro,
     extra,
     imageSrc,
-    offsetColor
+    offsetColor,
+    slug
 }) => {
     const getCardIntro = (text) => {
         const textLength = 125;
@@ -107,10 +115,14 @@ const ArticleCard = ({
     return (
         <CardWrapper offsetColor={offsetColor}>
             <CardInnerWrapper>
-                { imageSrc && <CardImage src={imageSrc || ''} /> }
+                <CardImage src={imageSrc || ''} />
                 <CardContent>
                     { tag }
-                    { title && <CardTitle>{ title }</CardTitle> }
+                    { title &&
+                        <CardTitle>
+                            <Link to={`/articles/${slug}`}>{title}</Link>
+                        </CardTitle>
+                    }
                     { intro && <CardIntro>{ getCardIntro(intro) }</CardIntro> }
                     { extra && <CardExtraData>{ extra }</CardExtraData> }
                 </CardContent>

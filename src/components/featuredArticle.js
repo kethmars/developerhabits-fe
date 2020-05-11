@@ -35,11 +35,26 @@ const FeaturedArticleImage = styled.div`
     }
 `;
 
-const IndexPage = () => (
+const FeaturedArticle = ({
+    imageSrc,
+    content,
+    categories,
+    author,
+    title,
+    creationDate,
+    slug
+}) => (
     <FeaturedArticleWrapper>
-        <FeaturedArticleImage src={featuredImage} />
-        <FeaturedArticleCard />
+        <FeaturedArticleImage src={imageSrc} />
+        <FeaturedArticleCard
+            title={title}
+            intro={content && content.substring(0, 200)}
+            categories={categories}
+            author={author}
+            creationDate={creationDate}
+            slug={slug}
+        />
     </FeaturedArticleWrapper>
 );
 
-export default IndexPage;
+export default FeaturedArticle;
