@@ -18,6 +18,7 @@ const articleNodesString = `
         categories {
             name
             id
+            color
         }
     }
 `;

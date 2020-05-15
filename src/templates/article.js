@@ -95,7 +95,7 @@ const IndexPage = ({ pageContext }) => (
                         pageContext.categories.map(category => (
                             <ColorfulTag
                                 key={category.id}
-                                color={COLOR_BLUE}
+                                color={category.color}
                             >
                                 #{category.name}
                             </ColorfulTag>
