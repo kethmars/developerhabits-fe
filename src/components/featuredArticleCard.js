@@ -67,6 +67,12 @@ const Categories = styled.ul`
     }
 `;
 
+const FeaturedCardTitle = styled(InlineBackground)`
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
 const CategoryItem = ({ to, children, color }) => (
     <li>
         <a href={to}>
@@ -93,13 +99,12 @@ const FeaturedArticleCard = ({
 
             
             <H1Title style={{ maxWidth: '80%' }}>
-                <InlineBackground
+                <FeaturedCardTitle
                     to={`/articles/${slug}`}
                     as={Link}
-                    withHover
                 >
                     { title }
-                </InlineBackground>
+                </FeaturedCardTitle>
             </H1Title>
 
             <Intro>

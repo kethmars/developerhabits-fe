@@ -18,12 +18,6 @@ export const InlineBackground = styled.span`
     box-shadow: #fff 0 0.7em inset;
     transition: 0.1s ease all;
     color: inherit;
-
-    ${props => props.withHover && `
-        &:hover, &--active {
-            box-shadow: #fff 0 0 inset;
-        }
-    `}
 `;
 
 export const H1Title = styled.h1`

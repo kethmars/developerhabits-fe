@@ -69,6 +69,10 @@ const CardTitle = styled.h3`
     a {
         color: inherit;
         text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 `;
 
@@ -115,7 +119,9 @@ const ArticleCard = ({
     return (
         <CardWrapper offsetColor={offsetColor}>
             <CardInnerWrapper>
-                <CardImage src={imageSrc || ''} />
+                <Link to={`/articles/${slug}`}>
+                    <CardImage src={imageSrc || ''} />
+                </Link>
                 <CardContent>
                     { tag }
                     { title &&
