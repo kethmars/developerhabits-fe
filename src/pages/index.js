@@ -1,5 +1,5 @@
 import React from 'react';
-import { StaticQuery, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 
 import { COLOR_LIGHT_GRAY_2 } from '../constants';
 
@@ -44,7 +44,7 @@ const IndexPage = ({ data }) => {
             />
 
             <Section bgColor={COLOR_LIGHT_GRAY_2}>
-                <SubscriptionBlock />
+                <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2}/>
             </Section>
         </Layout>
     );

@@ -107,9 +107,9 @@ const Header = ({ siteTitle }) => (
                 </ul>
             </MenuWrapper>
 
-            <IconButton>
+            {/* <IconButton>
                 <img alt="Search icon" src={SearchIcon} />
-            </IconButton>
+            </IconButton> */}
 
         </HeaderContent>
     </HeaderWrapper>

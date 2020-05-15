@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
@@ -21,6 +20,8 @@ import 'typeface-roboto';
 import './layout.css';
 
 const LayoutStyles = styled.div`
+    font-family: 'Roboto';
+
     p {
         margin: 20px 0;
     }

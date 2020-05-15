@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
-import { COLOR_LIGHT_GRAY, COLOR_DARK_BLUE } from '../constants';
+import {
+    COLOR_LIGHT_GRAY,
+    COLOR_DARK_BLUE
+} from '../constants';
 
 const CardWrapper = styled.div`
     display: block;

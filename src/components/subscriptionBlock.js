@@ -83,7 +83,7 @@ const SubmitButtonWrapper = styled.div`
     }
 `;
 
-const SubscriptionBlock = () => {
+const SubscriptionBlock = ({ bgColor }) => {
     const [ emailField, setEmailField ] = useState(''); 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -99,7 +99,7 @@ const SubscriptionBlock = () => {
                 as="h2"
                 style={{ margin: '0px' }}
             >
-                <InlineBackground>
+                <InlineBackground bgColor={bgColor}>
                     Subscribe to get the latest news, yay!
                 </InlineBackground>
             </H1Title>

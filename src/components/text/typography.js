@@ -15,7 +15,7 @@ export const InlineBackground = styled.span`
     background-repeat: no-repeat;
     background-position: 0px bottom;
     background-color: ${COLOR_CYAN};
-    box-shadow: #fff 0 0.7em inset;
+    box-shadow: ${ props => props.bgColor || '#fff' } 0 0.7em inset;
     transition: 0.1s ease all;
     color: inherit;
 `;

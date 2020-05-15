@@ -4,7 +4,7 @@ export const SECTION_CYAN = 'section-blue';
 
 export const PAGE_WIDTH = 1400;
 export const PAGE_WIDTH_NARROW = 1000;
-export const PAGE_WIDTH_ARTICLE = 800;
+export const PAGE_WIDTH_ARTICLE = 720;
 export const COLUMN_GAP = 40;
 export const ROW_GAP = 80;
 
