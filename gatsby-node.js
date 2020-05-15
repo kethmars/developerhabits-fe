@@ -1,48 +1,74 @@
-const path = require(`path`);
+const articleNodesString = `
+    nodes {
+        title,
+        slug,
+        id,
+        user {
+
+            displayName,
+            avatar {
+                publicURL
+            }
+        },
+        featuredImage {
+            publicURL
+        },
+        content,
+        creationDate
+        categories {
+            name
+            id
+            color
+        }
+    }
+`;
 
 exports.createPages = async({
     actions: { createPage },
     graphql }
 ) => {
-    const { data } = await graphql(`
+    const { data:articleData } = await graphql(`
         query {
             allStrapiArticles {
-                nodes {
-                    title,
-                    slug,
-                    id,
-                    user {
-    
-                        displayName,
-                        avatar {
-                            publicURL
-                        }
-                    },
-                    featuredImage {
-                        publicURL
-                    },
-                    content,
-                    creationDate
-                    categories {
-                        name
-                        id
-                    }
-                }
+                ${articleNodesString}
             }
         }
     `);
     
     //TODO: SET UP Debugger;
-    if (!data.allStrapiArticles.nodes.length) {
+    if (!articleData.allStrapiArticles.nodes.length) {
         return;
     }
 
-    data.allStrapiArticles.nodes.forEach(article => {
+    articleData.allStrapiArticles.nodes.forEach(async article => {
+        const firstCategory = article.categories[0].id;
+        const { data: relatedArticles } = await graphql(`
+            query {
+                allStrapiArticles(
+                    filter: {
+                        categories: {
+                            elemMatch: {
+                                id: {
+                                    eq: ${firstCategory}
+                                }
+                            }
+                        },
+                        id: {
+                            ne: "${article.id}"
+                        }
+                    }
+                ) {
+                    ${articleNodesString}
+                }
+            }
+        `);
+
         createPage({
             path: `/articles/${article.slug}`,
             component: require.resolve('./src/templates/article.js'),
             context: {
-                ...article
+                ...article,
+                relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
             },
         });
     });

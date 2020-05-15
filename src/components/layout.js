@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
@@ -15,11 +14,14 @@ import {
 } from '../constants';
 
 import Header from './header';
+import Footer from './footer';
 
 import 'typeface-roboto';
 import './layout.css';
 
 const LayoutStyles = styled.div`
+    font-family: 'Roboto';
+
     p {
         margin: 20px 0;
     }
@@ -60,12 +62,10 @@ const Layout = ({ children }) => {
         <LayoutStyles>
             <Header siteTitle={data.site.siteMetadata.title} />
             { children }
+            <Footer />
         </LayoutStyles>
     );
 };
 
-Layout.propTypes = {
-    children: PropTypes.node.isRequired,
-};
 
 export default Layout;

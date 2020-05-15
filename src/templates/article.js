@@ -11,6 +11,7 @@ import {
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+import SocialMediaBar from '../components/social-media-bar';
 import Section from '../components/section';
 
 import {
@@ -53,7 +54,6 @@ const CategoriesWrapper = styled.div`
     }
 `;
 
-// TODO: SET ROBOT AS GLOBAL FONT
 const ArticleContent = styled.div`
     width: auto;
     max-width: ${PAGE_WIDTH_ARTICLE}px;
@@ -64,6 +64,7 @@ const ArticleContent = styled.div`
     font-family: 'Roboto';
     font-weight: 300;
     line-height: 1.5em;
+    position: relative;
 
     &, & > *, h2, h3 {
         font-family: 'Roboto';
@@ -94,7 +95,7 @@ const IndexPage = ({ pageContext }) => (
                         pageContext.categories.map(category => (
                             <ColorfulTag
                                 key={category.id}
-                                color={COLOR_BLUE}
+                                color={category.color}
                             >
                                 #{category.name}
                             </ColorfulTag>
@@ -115,17 +116,26 @@ const IndexPage = ({ pageContext }) => (
             }
 
             <ArticleContent>
+                <SocialMediaBar />
                 <ReactMarkdown
                     escapeHtml={false}
                     source={pageContext.content}
                 />
             </ArticleContent>
         </Section>
+        {
+            pageContext.relatedArticles && pageContext.relatedArticles.length ?
+                <ArticlesSection
+                    theme="blue"
+                    title="Related articles"
+                    articles={pageContext.relatedArticles}
+                /> :
+                ''
+        }
 
-        <ArticlesSection theme="blue" title="Related articles"/>
-        <Section bgColor={COLOR_LIGHT_GRAY_2}>
-            <SubscriptionBlock />
-        </Section>
+        {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
+            <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />
+        </Section> */}
     </Layout>
 );
 

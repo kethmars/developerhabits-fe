@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 import {
     COLUMN_GAP,
-    COLOR_BLUE,
-    COLOR_YELLOW,
-    COLOR_GREEN,
     COLOR_CYAN_LIGHT,
     COLOR_CYAN,
     COLOR_LIGHT_GRAY,
@@ -49,7 +46,6 @@ const getArticleCards = (articles = [], offsetColor) => (
 );
 
 const ArticlesSection = ({
-    data,
     articles,
     theme = 'white',
     title
