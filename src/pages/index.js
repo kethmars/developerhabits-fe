@@ -43,9 +43,9 @@ const IndexPage = ({ data }) => {
                 title="Featured articles"
             />
 
-            <Section bgColor={COLOR_LIGHT_GRAY_2}>
+            {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
                 <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2}/>
-            </Section>
+            </Section> */}
         </Layout>
     );
 };

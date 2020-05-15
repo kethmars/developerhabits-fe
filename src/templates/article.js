@@ -123,11 +123,19 @@ const IndexPage = ({ pageContext }) => (
                 />
             </ArticleContent>
         </Section>
+        {
+            pageContext.relatedArticles && pageContext.relatedArticles.length ?
+                <ArticlesSection
+                    theme="blue"
+                    title="Related articles"
+                    articles={pageContext.relatedArticles}
+                /> :
+                ''
+        }
 
-        <ArticlesSection theme="blue" title="Related articles"/>
-        <Section bgColor={COLOR_LIGHT_GRAY_2}>
+        {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
             <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />
-        </Section>
+        </Section> */}
     </Layout>
 );
 

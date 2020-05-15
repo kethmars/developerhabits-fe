@@ -46,7 +46,6 @@ const getArticleCards = (articles = [], offsetColor) => (
 );
 
 const ArticlesSection = ({
-    data,
     articles,
     theme = 'white',
     title
