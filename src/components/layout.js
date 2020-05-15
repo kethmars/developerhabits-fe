@@ -15,6 +15,7 @@ import {
 } from '../constants';
 
 import Header from './header';
+import Footer from './footer';
 
 import 'typeface-roboto';
 import './layout.css';
@@ -60,12 +61,10 @@ const Layout = ({ children }) => {
         <LayoutStyles>
             <Header siteTitle={data.site.siteMetadata.title} />
             { children }
+            <Footer />
         </LayoutStyles>
     );
 };
 
-Layout.propTypes = {
-    children: PropTypes.node.isRequired,
-};
 
 export default Layout;
