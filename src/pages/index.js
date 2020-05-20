@@ -1,7 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import { COLOR_LIGHT_GRAY_2 } from '../constants';
+import useIsMobile from '../utils/is-mobile';
+
+import { COLOR_LIGHT_GRAY_2, COLOR_CYAN, COLOR_CYAN_LIGHT } from '../constants';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -10,7 +12,32 @@ import SubscriptionBlock from '../components/subscriptionBlock.js';
 import ArticlesSection from '../components/articlesSection';
 import FeaturedArticle from '../components/featuredArticle';
 
+const FeaturedArticleSection = ({
+    isMobile,
+    featuredArticle
+}) => (
+    isMobile ? (
+        <ArticlesSection
+            articles={[ featuredArticle ]}
+            theme="white"
+        />
+    ) : (
+        <Section>
+            <FeaturedArticle
+                title={featuredArticle?.title}
+                imageSrc={featuredArticle?.featuredImage?.publicURL}
+                content={featuredArticle.content}
+                categories={featuredArticle.categories}
+                author={featuredArticle.user}
+                creationDate={featuredArticle.creationDate || featuredArticle.created_at}
+                slug={featuredArticle.slug}
+            />
+        </Section>
+    )
+);
+
 const IndexPage = ({ data }) => {
+    const isMobile = useIsMobile();
     const featuredArticles = data?.featured?.nodes;
 
     return (
@@ -19,18 +46,15 @@ const IndexPage = ({ data }) => {
 
             {
                 featuredArticles[0] &&
-                <Section>
-                    <FeaturedArticle
-                        title={featuredArticles[0]?.title}
-                        imageSrc={featuredArticles[0]?.featuredImage?.publicURL}
-                        content={featuredArticles[0].content}
-                        categories={featuredArticles[0].categories}
-                        author={featuredArticles[0].user}
-                        creationDate={featuredArticles[0].creationDate || featuredArticles[0].created_at}
-                        slug={featuredArticles[0].slug}
-                    />
-                </Section>
+                <FeaturedArticleSection
+                    isMobile={isMobile}
+                    featuredArticle={featuredArticles[0]}
+                />
             }
+
+            {/* <Section bgColor={COLOR_CYAN_LIGHT}>
+                <SubscriptionBlock bgColor={COLOR_CYAN_LIGHT}/>
+            </Section> */}
 
             <ArticlesSection
                 articles={data?.latest?.nodes || []}
@@ -42,10 +66,6 @@ const IndexPage = ({ data }) => {
                 theme="blue"
                 title="Featured articles"
             />
-
-            {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
-                <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2}/>
-            </Section> */}
         </Layout>
     );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
-    PAGE_WIDTH,
+    PAGE_SIZES,
     COLOR_DARK_BLUE
 } from '../constants';
 
@@ -14,35 +14,60 @@ import Youtube from '../images/icons/youtube.svg';
 
 const FooterWrapper = styled.header`
   width: 100%;
-  height: 110px;
   box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
   padding: 0 40px;
-  box-sizing: border-box;
+	box-sizing: border-box;
+	
+	@media (min-width: ${PAGE_SIZES.desktop.width}px) {
+		height: 110px;
+	}
 `;
 
 const FooterContent = styled.div`
   width: 100%;
-  max-width: ${PAGE_WIDTH}px;
+  max-width: ${PAGE_SIZES.desktop.width}px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-columns-gap: 20px;
-  font-size: 16px;
+	grid-template-columns: 1fr;
+	grid-row-gap: 20px;
+	font-size: 16px;
+	padding: 20px;
 
-  & > * {
-      display: inline-flex;
-      align-items: center;
-  }
+	@media (min-width: ${PAGE_SIZES.desktop.width}px) {
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-columns-gap: 20px;
+		padding: 0px;
+	}
+`;
+
+const FooterColumn = styled.div`
+    display: inline-flex;
+		align-items: center;
+		justify-content: center;
+
+    @media (min-width: ${PAGE_SIZES.desktop.width}px) {
+        ${props => props.contentCenter && `
+            justify-content: center;
+        `}
+
+        ${props => props.contentRight && `
+            justify-content: flex-end;
+        `}
+    }
 `;
 
 const LogoImage = styled.img`
     width: 40px;
     height: auto;
-    display: block;
+    display: none;
     margin-bottom: 0;
     margin-right: 20px;
+
+    @media (min-width: ${PAGE_SIZES.desktop.width}px) {
+        display: block;
+    }
 `;
 
 const IconImage = styled.img`
@@ -64,26 +89,26 @@ const FooterLink = styled(Link)`
 const Footer = () => (
     <FooterWrapper>
         <FooterContent>
-            <div>
+            <FooterColumn>
                 <LogoImage src={Logo} />
                 <span>DeveloperHabits by Kethmar Salumets</span>
-            </div>
+            </FooterColumn>
 
-            <div style={{ justifyContent: 'center' }}>
-                <Link to="#">
+            <FooterColumn contentCenter>
+                <a href="https://www.instagram.com/developerhabits/" target="_blank">
                     <IconImage src={Instagram} />
-                </Link>
-                <Link to="#">
+                </a>
+                <a href="https://twitter.com/developerHabits" target="_blank">
                     <IconImage src={Twitter} />
-                </Link>
-                <Link to="#">
+                </a>
+                <a href="https://www.youtube.com/channel/UCJLZwePkNHps5Bv7VwISyTA/" target="_blank">
                     <IconImage src={Youtube} />
-                </Link>
-            </div>
+                </a>
+            </FooterColumn>
 
-            <div style={{ justifyContent: 'flex-end' }}>
+            <FooterColumn contentRight>
                 <FooterLink to="#">Contact me</FooterLink>
-            </div>
+            </FooterColumn>
         </FooterContent>
     </FooterWrapper>
 );

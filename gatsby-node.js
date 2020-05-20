@@ -1,25 +1,22 @@
-const articleNodesString = `
-    nodes {
-        title,
-        slug,
-        id,
-        user {
-
-            displayName,
-            avatar {
-                publicURL
-            }
-        },
-        featuredImage {
+const articlesParams = `
+    title,
+    slug,
+    id,
+    user {
+        displayName,
+        avatar {
             publicURL
-        },
-        content,
-        creationDate
-        categories {
-            name
-            id
-            color
         }
+    },
+    featuredImage {
+        publicURL
+    },
+    content,
+    creationDate
+    categories {
+        name
+        id
+        color
     }
 `;
 
@@ -27,20 +24,27 @@ exports.createPages = async({
     actions: { createPage },
     graphql }
 ) => {
-    const { data:articleData } = await graphql(`
+    const { data } = await graphql(`
         query {
-            allStrapiArticles {
-                ${articleNodesString}
+            articleData:allStrapiArticles {
+                nodes {
+                    ${articlesParams}
+                }
+            }
+            articleCategories:allStrapiCategories {
+                nodes {
+                    id,
+                    name,
+                    slug,
+                    strapiId
+                }
             }
         }
     `);
-    
-    //TODO: SET UP Debugger;
-    if (!articleData.allStrapiArticles.nodes.length) {
-        return;
-    }
 
-    articleData.allStrapiArticles.nodes.forEach(async article => {
+    const { articleData, articleCategories } = data;
+
+    articleData.nodes.forEach(async article => {
         const firstCategory = article.categories[0].id;
         const { data: relatedArticles } = await graphql(`
             query {
@@ -58,7 +62,9 @@ exports.createPages = async({
                         }
                     }
                 ) {
-                    ${articleNodesString}
+                    nodes {
+                        ${articlesParams}
+                    }
                 }
             }
         `);
@@ -70,6 +76,37 @@ exports.createPages = async({
                 ...article,
                 relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
             },
+        });
+    });
+
+    articleCategories.nodes.forEach(async category => {
+        const { data: articlesData } = await graphql(`
+            query {
+                allStrapiArticles(
+                    filter: {
+                        categories: {
+                            elemMatch: {
+                                id: {
+                                    eq: ${category.strapiId}
+                                }
+                            }
+                        }
+                    }
+                ) {
+                    nodes {
+                        ${articlesParams}
+                    }
+                }
+            }
+        `);
+
+        createPage({
+            path: `/${category.slug}`,
+            component: require.resolve('./src/templates/category.js'),
+            context: {
+                ...category,
+                articles: articlesData.allStrapiArticles.nodes || []
+            }
         });
     });
 };

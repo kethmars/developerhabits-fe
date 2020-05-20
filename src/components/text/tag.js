@@ -19,11 +19,6 @@ const TagWrapper = styled.div`
         left: 7px;
         transition: 0.2s ease all;
     }
-
-    &:hover::before {
-        top: 12px;
-        left: 12px;
-    }
 `;
 
 const TagContent = styled.span`
@@ -34,6 +29,15 @@ const TagContent = styled.span`
     padding: 5px;
     color: #fff;
     position: relative;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 `;
 
 const Tag = ({ children, offsetColor }) => (

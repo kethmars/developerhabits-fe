@@ -1,12 +1,29 @@
 export const SECTION_TRANSPARENT = 'section-transparent';
 export const SECTION_GRAY = 'section-gray';
 export const SECTION_CYAN = 'section-blue';
-
-export const PAGE_WIDTH = 1400;
-export const PAGE_WIDTH_NARROW = 1000;
-export const PAGE_WIDTH_ARTICLE = 720;
-export const COLUMN_GAP = 40;
-export const ROW_GAP = 80;
+export const PAGE_SIZES = {
+    desktop: {
+        width: 1400,
+        widthNarrow: 1000,
+        widthArticle: 720,
+        columnGap: 40,
+        rowGap: 80
+    },
+    tablet: {
+        width: 1100,
+        widthNarrow: 800,
+        widthArticle: 600,
+        columnGap: 30,
+        rowGap: 60
+    },
+    mobile: {
+        width: 700,
+        widthNarrow: 700,
+        widthArticle: 700,
+        columnGap: 30,
+        rowGap: 30
+    }
+};
 
 // COLORS
 export const COLOR_CYAN = '#ADF3EB';

@@ -1,9 +1,9 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
 import {
-    COLUMN_GAP,
+    PAGE_SIZES,
     COLOR_CYAN_LIGHT,
     COLOR_CYAN,
     COLOR_LIGHT_GRAY,
@@ -18,7 +18,12 @@ const ArticlesWrapper = styled.div`
     height: auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: ${COLUMN_GAP}px;
+    grid-column-gap: ${PAGE_SIZES.desktop.columnGap}px;
+
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
+    }
 `;
 
 const getArticleCards = (articles = [], offsetColor) => (
@@ -38,7 +43,13 @@ const getArticleCards = (articles = [], offsetColor) => (
             title={title}
             intro={content}
             // extra={article.extra}
-            tag={<Tag offsetColor={categories[0]?.color}>{categories && categories[0].name}</Tag>}
+            tag={
+                <Tag offsetColor={categories[0]?.color}>
+                    <Link to={`/${categories[0]?.slug}`}>
+                        {categories && `#${categories[0].name}`}
+                    </Link>
+                </Tag>
+            }
             offsetColor={offsetColor}
             slug={slug}
         />
@@ -87,6 +98,7 @@ export const query = graphql`
         color
         name
         id
+        slug
     },
     slug
   }

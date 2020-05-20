@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
 import {
-    ROW_GAP,
+    PAGE_SIZES,
     COLOR_BLUE,
-    PAGE_WIDTH_ARTICLE,
     COLOR_LIGHT_GRAY_2
 } from '../constants';
 
@@ -35,10 +34,10 @@ const FeaturedArticleImage = styled.div`
 
 const ArticleHeader = styled.div`
     width: auto;
-    max-width: ${PAGE_WIDTH_ARTICLE};
+    max-width: ${PAGE_SIZES.desktop.widthArticle};
     height: auto;
     display: flex;
-    margin: 0 auto ${ROW_GAP}px auto;
+    margin: 0 auto ${PAGE_SIZES.desktop.rowGap}px auto;
     text-align: center;
     justify-content: center;
     flex-direction: column;
@@ -49,6 +48,7 @@ const CategoriesWrapper = styled.div`
     margin: 10px auto 30px;
 
     & > * {
+        display: inline-block;
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -56,7 +56,7 @@ const CategoriesWrapper = styled.div`
 
 const ArticleContent = styled.div`
     width: auto;
-    max-width: ${PAGE_WIDTH_ARTICLE}px;
+    max-width: ${PAGE_SIZES.desktop.widthArticle}px;
     height: auto;
     display: block;
     margin: 40px auto 0;
@@ -76,67 +76,80 @@ const ArticleContent = styled.div`
     }
 `;
 
-const IndexPage = ({ pageContext }) => (
-    <Layout>
-        <SEO title={pageContext.title} />
-        <Section
-            narrow={true}
-            style={{ paddingTop: '40px' }}
-        >
-            <ArticleHeader>
-                <H1Title big>
-                    <InlineBackground>
-                        { pageContext.title }
-                    </InlineBackground>
-                </H1Title>
+const IndexPage = ({ pageContext, location }) => {
+    const shareLink = location.href;
+    const socialMediaLinks = {
+        twitterUrl: `https://twitter.com/share?url=${shareLink}&text=${pageContext.title}&hashtags=developerHabits`,
+        linkedinUrl: `https://www.linkedin.com/shareArticle?mini=true&url=${shareLink}`,
+        facebookUrl: `https://www.facebook.com/sharer.php?u=${shareLink}`,
+    };
 
-                <CategoriesWrapper>
-                    {
-                        pageContext.categories.map(category => (
-                            <ColorfulTag
-                                key={category.id}
-                                color={category.color}
-                            >
-                                #{category.name}
-                            </ColorfulTag>
-                        ))
-                    }
-                </CategoriesWrapper>
+    return (
+        <Layout>
+            <SEO
+                title={pageContext.title}
+                metaImage={pageContext.featuredImage?.publicURL}
+            />
+            <Section
+                narrow={true}
+                style={{ paddingTop: '40px' }}
+            >
+                <ArticleHeader>
+                    <H1Title big>
+                        <InlineBackground>
+                            { pageContext.title }
+                        </InlineBackground>
+                    </H1Title>
 
-                <TextWithIcon
-                    iconSrc={pageContext.user.avatar.publicURL}
-                    text={`${pageContext.creationDate || pageContext.created_at || ''} ${pageContext.user.displayName || ''}`}
-                    alt={pageContext.user.displayName || ''}
-                />
-            </ArticleHeader>
-            
+                    <CategoriesWrapper>
+                        {
+                            pageContext.categories.map(category => (
+                                <ColorfulTag
+                                    key={category.id}
+                                    color={category.color}
+                                >
+                                    #{category.name}
+                                </ColorfulTag>
+                            ))
+                        }
+                    </CategoriesWrapper>
+
+                    <TextWithIcon
+                        iconSrc={pageContext.user.avatar.publicURL}
+                        text={`${pageContext.creationDate || pageContext.created_at || ''} ${pageContext.user.displayName || ''}`}
+                        alt={pageContext.user.displayName || ''}
+                    />
+                </ArticleHeader>
+                
+                {
+                    pageContext?.featuredImage?.publicURL &&
+                    <FeaturedArticleImage src={pageContext.featuredImage.publicURL} />
+                }
+
+                <ArticleContent>
+                    <SocialMediaBar {...socialMediaLinks}/>
+                    <ReactMarkdown
+                        escapeHtml={false}
+                        source={pageContext.content}
+                    />
+                </ArticleContent>
+            </Section>
+
             {
-                pageContext?.featuredImage?.publicURL &&
-                <FeaturedArticleImage src={pageContext.featuredImage.publicURL} />
+                pageContext.relatedArticles && pageContext.relatedArticles.length ?
+                    <ArticlesSection
+                        theme="blue"
+                        title="Related articles"
+                        articles={pageContext.relatedArticles}
+                    /> :
+                    ''
             }
 
-            <ArticleContent>
-                <SocialMediaBar />
-                <ReactMarkdown
-                    escapeHtml={false}
-                    source={pageContext.content}
-                />
-            </ArticleContent>
-        </Section>
-        {
-            pageContext.relatedArticles && pageContext.relatedArticles.length ?
-                <ArticlesSection
-                    theme="blue"
-                    title="Related articles"
-                    articles={pageContext.relatedArticles}
-                /> :
-                ''
-        }
-
-        {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
-            <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />
-        </Section> */}
-    </Layout>
-);
+            {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
+                <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />
+            </Section> */}
+        </Layout>
+    );
+};
 
 export default IndexPage;

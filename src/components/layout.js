@@ -10,7 +10,8 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from 'styled-components';
 
 import {
-    COLOR_LIGHT_GRAY_2
+    COLOR_LIGHT_GRAY_2,
+    PAGE_SIZES
 } from '../constants';
 
 import Header from './header';
@@ -44,6 +45,13 @@ const LayoutStyles = styled.div`
         padding: 40px;
         box-sizing: border-box;
         background-color: ${ COLOR_LIGHT_GRAY_2 };
+    }
+
+    @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+        iframe {
+            width: 100%;
+            height: auto;
+        }
     }
 `;
 

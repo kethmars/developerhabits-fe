@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import MailchimpSubscribe from 'react-mailchimp-subscribe';
+
 import EnvelopeIcon from '../images/icons/envelope.svg';
 
 import {
@@ -83,6 +85,9 @@ const SubmitButtonWrapper = styled.div`
     }
 `;
 
+const url = 'https://developerhabits.us18.list-manage.com/subscribe/post-json?u=51f1c865a922c5f0dbff946e6&amp;id=3527935360';
+// use the render prop and your custom form
+
 const SubscriptionBlock = ({ bgColor }) => {
     const [ emailField, setEmailField ] = useState(''); 
     const onSubmit = (e) => {
@@ -104,19 +109,37 @@ const SubscriptionBlock = ({ bgColor }) => {
                 </InlineBackground>
             </H1Title>
 
-            <form onSubmit={onSubmit}>
-                <TextInput
-                    name="email"
-                    placeholder="Please enter your email…"
-                    onChange={(e) => setEmailField(e.target.value)}
-                />
+            <MailchimpSubscribe
+                url={url}
+                render={({ subscribe, status, message }) => (
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        console.log('E', e);
+                        console.log('E', {
+                            EMAIL: emailField
+                        });
+                        subscribe({
+                            EMAIL: emailField
+                        });
+                    }}>
+                        {status === 'sending' && <div style={{ color: 'blue' }}>sending...</div>}
+                        {status === 'error' && <div style={{ color: 'red' }} dangerouslySetInnerHTML={{__html: message}}/>}
+                        {status === 'success' && <div style={{ color: 'green' }}>Subscribed !</div>}
+                        <TextInput
+                            name="email"
+                            placeholder="Please enter your email…"
+                            id="email"
+                            onChange={(e) => setEmailField(e.target.value)}
+                        />
 
-                <SubmitButtonWrapper>
-                    <SubmitButton iconSrc={EnvelopeIcon} type="submit">
-                        Submit
-                    </SubmitButton>
-                </SubmitButtonWrapper>
-            </form>
+                        <SubmitButtonWrapper>
+                            <SubmitButton iconSrc={EnvelopeIcon} type="submit">
+                                Submit
+                            </SubmitButton>
+                        </SubmitButtonWrapper>
+                    </form>
+                )}
+            />
         </SubscriptonWrapper>
     );
 };

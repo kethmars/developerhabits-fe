@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
-    PAGE_WIDTH,
-    PAGE_WIDTH_NARROW,
+    PAGE_SIZES,
     COLOR_CYAN_LIGHT,
     COLOR_LIGHT_GRAY_2,
     SECTION_TRANSPARENT,
@@ -27,7 +26,9 @@ const SectionWrapper = styled.div`
 
 const SectionContent = styled.div`
     width: auto;
-    max-width: ${props => props.narrow ? PAGE_WIDTH_NARROW : PAGE_WIDTH}px;
+    max-width: ${props => props.narrow ?
+        PAGE_SIZES.desktop.widthNarrow :
+        PAGE_SIZES.desktop.width}px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;

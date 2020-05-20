@@ -1,19 +1,15 @@
-import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 
 import {
-    COLUMN_GAP,
-    PAGE_WIDTH,
-    COLOR_CYAN,
+    PAGE_SIZES,
     COLOR_LIGHT_GRAY,
     COLOR_CYAN_LIGHT
 } from '../constants';
 
-import Instagram from '../images/icons/instagram.svg';
 import Twitter from '../images/icons/twitter.svg';
-import Youtube from '../images/icons/youtube.svg';
+import LinkedIn from '../images/icons/linkedin.svg';
+import Facebook from '../images/icons/facebook.svg';
 
 const BarWrapper = styled.div`
     position: absolute;
@@ -22,6 +18,14 @@ const BarWrapper = styled.div`
     position: absolute;
     transform: translateX(calc(-100% - 35px));
     top: 5px;
+
+    @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none;
+        margin-bottom: 60px;
+    }
 `;
 
 const BarWrapperInner = styled.div`
@@ -52,10 +56,12 @@ const BarWrapperContent = styled.div`
     text-align: center;
     justify-content: center;
     z-index: 1;
-`;
 
-const IconLink = styled(Link)`
-    text-align: center;
+    @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 `;
 
 const IconImage = styled.img`
@@ -63,30 +69,48 @@ const IconImage = styled.img`
     height: auto;
     display: block;
     margin: 0 auto;
+
+    @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 `;
 
 const BarTitle = styled.span`
     font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
+
+    @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
 `;
 
-const SocialMediaBar = () => (
+const SocialMediaBar = ({
+    twitterUrl,
+    linkedinUrl,
+    facebookUrl
+}) => (
     <BarWrapper>
         <BarWrapperInner>
             <BarWrapperContent>
                 <BarTitle>
                     Share
                 </BarTitle>
-                <IconLink to="#">
-                    <IconImage src={Instagram} />
-                </IconLink>
-                <IconLink to="#">
-                    <IconImage src={Twitter} />
-                </IconLink>
-                <IconLink to="#">
-                    <IconImage src={Youtube} />
-                </IconLink>
+                {twitterUrl &&
+                    <a href={twitterUrl} target="_blank" rel="noopener noreferrer">
+                        <IconImage src={Twitter} />
+                    </a>}
+                {linkedinUrl &&
+                    <a href={linkedinUrl} target="_blank" rel="noopener noreferrer">
+                        <IconImage src={LinkedIn} />
+                    </a>}
+                {facebookUrl &&
+                    <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+                        <IconImage src={Facebook} />
+                    </a>}
             </BarWrapperContent>
         </BarWrapperInner>
     </BarWrapper>
