@@ -59,6 +59,7 @@ const CardImage = styled.div`
 const CardContent = styled.div`
     padding: 30px;
     color: ${COLOR_DARK_BLUE};
+    word-break: break-word;
 `;
 
 const CardTitle = styled.h3`
