@@ -53,9 +53,9 @@ exports.createPages = async({
     articleData.nodes.forEach(async article => {
         console.log('2');
         console.log('article.categories[0]', article.categories[0]);
-        const firstCategorySlug = article.categories[0].id;
+        const firstCategoryId = article.categories[0].id;
 
-        console.log('frist', firstCategorySlug);
+        console.log('frist', firstCategoryId);
 
         const { data: relatedArticles } = await graphql(`
             query {
@@ -64,7 +64,7 @@ exports.createPages = async({
                         categories: {
                             elemMatch: {
                                 id: {
-                                    eq: "${firstCategorySlug}"
+                                    eq: "${firstCategoryId}"
                                 }
                             }
                         },
