@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
 import {
-    PAGE_SIZES,
-    COLOR_BLUE,
-    COLOR_LIGHT_GRAY_2
-} from '../constants';
+    PAGE_SIZES} from '../constants';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -20,8 +17,6 @@ import {
 } from '../components/text/typography';
 import TextWithIcon from '../components/text/textWithIcon';
 import ArticlesSection from '../components/articlesSection';
-import SubscriptionBlock from '../components/subscriptionBlock';
-
 
 const FeaturedArticleImage = styled.div`
     width: 100%;
