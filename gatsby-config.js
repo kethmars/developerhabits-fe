@@ -14,7 +14,6 @@ module.exports = {
         'gatsby-plugin-eslint',
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',
-        'gatsby-transformer-json',
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
@@ -35,16 +34,9 @@ module.exports = {
             },
         },
         {
-            resolve: 'gatsby-source-filesystem',
-            options: {
-                name: 'products',
-                path: './data', 
-            },
-        },
-        {
             resolve: 'gatsby-source-strapi',
             options: {
-                apiURL: process.env.API_URL || 'http://localhost:1337',
+                apiURL: 'https://developerhabits-cms.herokuapp.com',
                 contentTypes: [
                     'articles',
                     'users',

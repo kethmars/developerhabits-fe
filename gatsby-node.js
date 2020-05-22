@@ -17,6 +17,7 @@ const articlesParams = `
         name
         id
         color
+        slug
     }
 `;
 
@@ -24,6 +25,7 @@ exports.createPages = async({
     actions: { createPage },
     graphql }
 ) => {
+    console.log('1');
     const { data } = await graphql(`
         query {
             articleData:allStrapiArticles {
@@ -42,10 +44,19 @@ exports.createPages = async({
         }
     `);
 
+    console.log('data', data);
+
     const { articleData, articleCategories } = data;
 
+    console.log(JSON.stringify(articleCategories, null, 4));
+
     articleData.nodes.forEach(async article => {
-        const firstCategory = article.categories[0].id;
+        console.log('2');
+        console.log('article.categories[0]', article.categories[0]);
+        const firstCategorySlug = article.categories[0].id;
+
+        console.log('frist', firstCategorySlug);
+
         const { data: relatedArticles } = await graphql(`
             query {
                 allStrapiArticles(
@@ -53,7 +64,7 @@ exports.createPages = async({
                         categories: {
                             elemMatch: {
                                 id: {
-                                    eq: ${firstCategory}
+                                    eq: "${firstCategorySlug}"
                                 }
                             }
                         },
@@ -69,6 +80,8 @@ exports.createPages = async({
             }
         `);
 
+        console.log('Related artcles', relatedArticles);
+
         createPage({
             path: `/articles/${article.slug}`,
             component: require.resolve('./src/templates/article.js'),
@@ -77,9 +90,11 @@ exports.createPages = async({
                 relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
             },
         });
+        console.log('3');
     });
 
     articleCategories.nodes.forEach(async category => {
+        console.log('4', category.slug);
         const { data: articlesData } = await graphql(`
             query {
                 allStrapiArticles(
@@ -87,7 +102,7 @@ exports.createPages = async({
                         categories: {
                             elemMatch: {
                                 id: {
-                                    eq: ${category.strapiId}
+                                    eq: "${category.id}"
                                 }
                             }
                         }
@@ -100,6 +115,8 @@ exports.createPages = async({
             }
         `);
 
+        console.log('Articles data', articlesData);
+
         createPage({
             path: `/${category.slug}`,
             component: require.resolve('./src/templates/category.js'),
@@ -108,5 +125,8 @@ exports.createPages = async({
                 articles: articlesData.allStrapiArticles.nodes || []
             }
         });
+        console.log('5');
     });
+
+    console.log('All good in page creation');
 };
