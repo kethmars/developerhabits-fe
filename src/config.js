@@ -1,14 +1,14 @@
 export const headerMenu = [
     {
         link: '/growth-mindset',
-        text: '#growthMindset'
+        text: '#growthMindset',
     },
     {
         link: '/tutorials',
-        text: '#tutorials'
+        text: '#tutorials',
     },
     {
         link: '/lifestyle',
-        text: '#lifestyle'
-    }
+        text: '#lifestyle',
+    },
 ];

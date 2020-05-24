@@ -8,15 +8,15 @@ import SubscriptionBlock from '../components/subscriptionBlock';
 const IndexPage = ({ pageContext }) => (
     <Layout>
         <SEO title={pageContext.title} />
-        {
-            pageContext.articles && pageContext.articles.length ?
-                <ArticlesSection
-                    title={`#${pageContext.name}`}
-                    articles={pageContext.articles}
-                    limit={15}
-                /> :
-                ''
-        }
+        {pageContext.articles && pageContext.articles.length ? (
+            <ArticlesSection
+                title={`#${pageContext.name}`}
+                articles={pageContext.articles}
+                limit={15}
+            />
+        ) : (
+            ''
+        )}
     </Layout>
 );
 

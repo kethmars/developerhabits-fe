@@ -7,22 +7,22 @@ export const PAGE_SIZES = {
         widthNarrow: 1000,
         widthArticle: 720,
         columnGap: 40,
-        rowGap: 80
+        rowGap: 80,
     },
     tablet: {
         width: 1100,
         widthNarrow: 800,
         widthArticle: 600,
         columnGap: 30,
-        rowGap: 60
+        rowGap: 60,
     },
     mobile: {
         width: 700,
         widthNarrow: 700,
         widthArticle: 700,
         columnGap: 30,
-        rowGap: 30
-    }
+        rowGap: 30,
+    },
 };
 
 // COLORS

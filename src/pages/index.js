@@ -12,15 +12,9 @@ import SubscriptionBlock from '../components/subscriptionBlock.js';
 import ArticlesSection from '../components/articlesSection';
 import FeaturedArticle from '../components/featuredArticle';
 
-const FeaturedArticleSection = ({
-    isMobile,
-    featuredArticle
-}) => (
+const FeaturedArticleSection = ({ isMobile, featuredArticle }) =>
     isMobile ? (
-        <ArticlesSection
-            articles={[ featuredArticle ]}
-            theme="white"
-        />
+        <ArticlesSection articles={[ featuredArticle ]} theme="white" />
     ) : (
         <Section>
             <FeaturedArticle
@@ -29,12 +23,13 @@ const FeaturedArticleSection = ({
                 content={featuredArticle.content}
                 categories={featuredArticle.categories}
                 author={featuredArticle.user}
-                creationDate={featuredArticle.creationDate || featuredArticle.created_at}
+                creationDate={
+                    featuredArticle.creationDate || featuredArticle.created_at
+                }
                 slug={featuredArticle.slug}
             />
         </Section>
-    )
-);
+    );
 
 const IndexPage = ({ data }) => {
     const isMobile = useIsMobile();
@@ -44,13 +39,12 @@ const IndexPage = ({ data }) => {
         <Layout>
             <SEO title="Home" />
 
-            {
-                featuredArticles[0] &&
+            {featuredArticles[0] && (
                 <FeaturedArticleSection
                     isMobile={isMobile}
                     featuredArticle={featuredArticles[0]}
                 />
-            }
+            )}
 
             {/* <Section bgColor={COLOR_CYAN_LIGHT}>
                 <SubscriptionBlock bgColor={COLOR_CYAN_LIGHT}/>
@@ -71,40 +65,25 @@ const IndexPage = ({ data }) => {
 };
 
 export const query = graphql`
-    query {
-        latest:allStrapiArticles(
-            sort: {
-                fields: [creationDate],
-                order: DESC
-            }
-            limit: 3
-        ) {
-            nodes {
-                ...ArticlesSectionFragment
-            }
-        }
-        featured:allStrapiArticles(
-            sort: {
-                fields: [creationDate],
-                order: DESC
-            }
-            limit: 3
-            filter: {
-                categories: {
-                    elemMatch: {
-                        name: {
-                            eq: "featured"
-                        }
-                    }
-                }
-            }
-        ) {
-            nodes {
-                ...ArticlesSectionFragment
-            }
-        }
+  query {
+    latest: allStrapiArticles(
+      sort: { fields: [creationDate], order: DESC }
+      limit: 3
+    ) {
+      nodes {
+        ...ArticlesSectionFragment
+      }
     }
+    featured: allStrapiArticles(
+      sort: { fields: [creationDate], order: DESC }
+      limit: 3
+      filter: { categories: { elemMatch: { name: { eq: "featured" } } } }
+    ) {
+      nodes {
+        ...ArticlesSectionFragment
+      }
+    }
+  }
 `;
-
 
 export default IndexPage;

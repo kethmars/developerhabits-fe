@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
-import {
-    PAGE_SIZES} from '../constants';
+import { PAGE_SIZES } from '../constants';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -13,62 +12,66 @@ import Section from '../components/section';
 import {
     H1Title,
     InlineBackground,
-    ColorfulTag
+    ColorfulTag,
 } from '../components/text/typography';
 import TextWithIcon from '../components/text/textWithIcon';
 import ArticlesSection from '../components/articlesSection';
 
 const FeaturedArticleImage = styled.div`
-    width: 100%;
-    height: 500px;
-    background-image: url(${props => props.src});
-    background-size: cover;
-    background-position: center;
-    background-color: #000;
+  width: 100%;
+  height: 500px;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
+  background-color: #000;
 `;
 
 const ArticleHeader = styled.div`
-    width: auto;
-    max-width: ${PAGE_SIZES.desktop.widthArticle};
-    height: auto;
-    display: flex;
-    margin: 0 auto ${PAGE_SIZES.desktop.rowGap}px auto;
-    text-align: center;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+  width: auto;
+  max-width: ${PAGE_SIZES.desktop.widthArticle};
+  height: auto;
+  display: flex;
+  margin: 0 auto ${PAGE_SIZES.desktop.rowGap}px auto;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CategoriesWrapper = styled.div`
-    margin: 10px auto 30px;
+  margin: 10px auto 30px;
 
-    & > * {
-        display: inline-block;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
+  & > * {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 `;
 
 const ArticleContent = styled.div`
-    width: auto;
-    max-width: ${PAGE_SIZES.desktop.widthArticle}px;
-    height: auto;
-    display: block;
-    margin: 40px auto 0;
-    font-size: 1.125rem;
-    font-family: 'Roboto';
-    font-weight: 300;
-    line-height: 1.5em;
-    position: relative;
+  width: auto;
+  max-width: ${PAGE_SIZES.desktop.widthArticle}px;
+  height: auto;
+  display: block;
+  margin: 40px auto 0;
+  font-size: 1.125rem;
+  font-family: "Roboto";
+  font-weight: 300;
+  line-height: 1.5em;
+  position: relative;
 
-    &, & > *, h2, h3 {
-        font-family: 'Roboto';
-    }
+  &,
+  & > *,
+  h2,
+  h3 {
+    font-family: "Roboto";
+  }
 
-    h2, h3 {
-        font-weight: 500;
-        margin-top: 40px;
-    }
+  h2,
+  h3 {
+    font-weight: 500;
+    margin-top: 40px;
+  }
 `;
 
 const IndexPage = ({ pageContext, location }) => {
@@ -85,60 +88,48 @@ const IndexPage = ({ pageContext, location }) => {
                 title={pageContext.title}
                 metaImage={pageContext.featuredImage?.publicURL}
             />
-            <Section
-                narrow={true}
-                style={{ paddingTop: '40px' }}
-            >
+            <Section narrow={true} style={{ paddingTop: '40px' }}>
                 <ArticleHeader>
                     <H1Title big>
-                        <InlineBackground>
-                            { pageContext.title }
-                        </InlineBackground>
+                        <InlineBackground>{pageContext.title}</InlineBackground>
                     </H1Title>
 
                     <CategoriesWrapper>
-                        {
-                            pageContext.categories.map(category => (
-                                <ColorfulTag
-                                    key={category.id}
-                                    color={category.color}
-                                >
-                                    #{category.name}
-                                </ColorfulTag>
-                            ))
-                        }
+                        {pageContext.categories.map(category => (
+                            <ColorfulTag key={category.id} color={category.color}>
+                #{category.name}
+                            </ColorfulTag>
+                        ))}
                     </CategoriesWrapper>
 
                     <TextWithIcon
                         iconSrc={pageContext.user.avatar?.publicURL}
-                        text={`${pageContext.creationDate || pageContext.created_at || ''} ${pageContext.user.displayName || ''}`}
-                        alt={pageContext.user.displayName || ''}
+                        text={`${
+                            pageContext.creationDate || pageContext.created_at || ''
+                        } ${pageContext.user.displayName || ''}`}
+                        alt={pageContext.user.displayName || ''}
                     />
                 </ArticleHeader>
-                
-                {
-                    pageContext?.featuredImage?.publicURL &&
+
+                {pageContext?.featuredImage?.publicURL && (
                     <FeaturedArticleImage src={pageContext.featuredImage.publicURL} />
-                }
+                )}
 
                 <ArticleContent>
-                    <SocialMediaBar {...socialMediaLinks}/>
-                    <ReactMarkdown
-                        escapeHtml={false}
-                        source={pageContext.content}
-                    />
+                    <SocialMediaBar {...socialMediaLinks} />
+                    <ReactMarkdown escapeHtml={false} source={pageContext.content} />
                 </ArticleContent>
             </Section>
 
-            {
-                pageContext.relatedArticles && pageContext.relatedArticles.length ?
-                    <ArticlesSection
-                        theme="blue"
-                        title="Related articles"
-                        articles={pageContext.relatedArticles}
-                    /> :
-                    ''
-            }
+            {pageContext.relatedArticles && pageContext.relatedArticles.length ? (
+                <ArticlesSection
+                    theme="blue"
+                    title="Related articles"
+                    articles={pageContext.relatedArticles}
+                />
+            ) : (
+                ''
+            )}
 
             {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
                 <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />

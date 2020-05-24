@@ -4,38 +4,31 @@ import MailchimpSubscribe from 'react-mailchimp-subscribe';
 
 import EnvelopeIcon from '../images/icons/envelope.svg';
 
-import {
-    COLOR_LIGHT_GRAY,
-    COLOR_DARK_BLUE,
-    COLOR_YELLOW
-} from '../constants';
+import { COLOR_LIGHT_GRAY, COLOR_DARK_BLUE, COLOR_YELLOW } from '../constants';
 
-import {
-    InlineBackground,
-    H1Title
-} from './text/typography';
+import { InlineBackground, H1Title } from './text/typography';
 
 const SubscriptonWrapper = styled.div`
-    width: 100%;
-    max-width: 550px;
-    display: block;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 550px;
+  display: block;
+  margin: 0 auto;
 `;
 
 const TextInput = styled.input`
-    width: 100%;
-    height: 60px;
-    background-color: #fff;
-    border: solid 1px ${COLOR_LIGHT_GRAY};
-    box-shadow: 2px 2px 4px 0 rgba(206,206,206,0.50);
-    line-height: 60px;
-    font-size: 1.125rem;
-    font-family: 'Roboto';
-    font-weight: 300;
-    padding: 20px;
-    box-sizing: border-box;
-    outline: none;
-    margin-top: 30px;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  border: solid 1px ${COLOR_LIGHT_GRAY};
+  box-shadow: 2px 2px 4px 0 rgba(206, 206, 206, 0.5);
+  line-height: 60px;
+  font-size: 1.125rem;
+  font-family: "Roboto";
+  font-weight: 300;
+  padding: 20px;
+  box-sizing: border-box;
+  outline: none;
+  margin-top: 30px;
 `;
 
 const SubmitButton = styled.button`
@@ -66,31 +59,32 @@ const SubmitButton = styled.button`
 `;
 
 const SubmitButtonWrapper = styled.div`
-    display: inline-block;
-    width: auto;
-    height: auto;
-    position: relative;
-    border: none;
-    outline: none;
-    margin-top: 30px;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  position: relative;
+  border: none;
+  outline: none;
+  margin-top: 30px;
 
-    &::before {
-        content: "";
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 10px;
-        top: 10px;
-        background-color: ${COLOR_YELLOW};
-    }
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    background-color: ${COLOR_YELLOW};
+  }
 `;
 
-const url = 'https://developerhabits.us18.list-manage.com/subscribe/post-json?u=51f1c865a922c5f0dbff946e6&amp;id=3527935360';
+const url =
+  'https://developerhabits.us18.list-manage.com/subscribe/post-json?u=51f1c865a922c5f0dbff946e6&amp;id=3527935360';
 // use the render prop and your custom form
 
 const SubscriptionBlock = ({ bgColor }) => {
-    const [ emailField, setEmailField ] = useState(''); 
-    const onSubmit = (e) => {
+    const [ emailField, setEmailField ] = useState('');
+    const onSubmit = e => {
         e.preventDefault();
 
         setTimeout(() => {
@@ -100,41 +94,49 @@ const SubscriptionBlock = ({ bgColor }) => {
 
     return (
         <SubscriptonWrapper>
-            <H1Title
-                as="h2"
-                style={{ margin: '0px' }}
-            >
+            <H1Title as="h2" style={{ margin: '0px' }}>
                 <InlineBackground bgColor={bgColor}>
-                    Subscribe to get the latest news, yay!
+          Subscribe to get the latest news, yay!
                 </InlineBackground>
             </H1Title>
 
             <MailchimpSubscribe
                 url={url}
                 render={({ subscribe, status, message }) => (
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        console.log('E', e);
-                        console.log('E', {
-                            EMAIL: emailField
-                        });
-                        subscribe({
-                            EMAIL: emailField
-                        });
-                    }}>
-                        {status === 'sending' && <div style={{ color: 'blue' }}>sending...</div>}
-                        {status === 'error' && <div style={{ color: 'red' }} dangerouslySetInnerHTML={{__html: message}}/>}
-                        {status === 'success' && <div style={{ color: 'green' }}>Subscribed !</div>}
+                    <form
+                        onSubmit={e => {
+                            e.preventDefault();
+                            console.log('E', e);
+                            console.log('E', {
+                                EMAIL: emailField,
+                            });
+                            subscribe({
+                                EMAIL: emailField,
+                            });
+                        }}
+                    >
+                        {status === 'sending' && (
+                            <div style={{ color: 'blue' }}>sending...</div>
+                        )}
+                        {status === 'error' && (
+                            <div
+                                style={{ color: 'red' }}
+                                dangerouslySetInnerHTML={{ __html: message }}
+                            />
+                        )}
+                        {status === 'success' && (
+                            <div style={{ color: 'green' }}>Subscribed !</div>
+                        )}
                         <TextInput
                             name="email"
                             placeholder="Please enter your email…"
                             id="email"
-                            onChange={(e) => setEmailField(e.target.value)}
+                            onChange={e => setEmailField(e.target.value)}
                         />
 
                         <SubmitButtonWrapper>
                             <SubmitButton iconSrc={EnvelopeIcon} type="submit">
-                                Submit
+                Submit
                             </SubmitButton>
                         </SubmitButtonWrapper>
                     </form>

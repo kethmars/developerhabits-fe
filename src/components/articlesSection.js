@@ -14,59 +14,53 @@ import ArticleCard from '../components/articleCard';
 import Tag from '../components/text/tag';
 
 const ArticlesWrapper = styled.div`
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: ${PAGE_SIZES.desktop.columnGap}px;
-    grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: ${PAGE_SIZES.desktop.columnGap}px;
+  grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
 
-    @media (max-width: 800px) {
-        grid-template-columns: 1fr;
-        grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
-    }
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+    grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
+  }
 `;
 
-const getArticleCards = (
-    articles = [],
-    offsetColor,
-    limit
-) => (
-    articles.slice(0, limit).map(({
-        title,
-        id,
-        user,
-        featuredSmall,
-        content,
-        creationDate,
-        categories,
-        slug
-    }) => (
-        <ArticleCard
-            key={id}
-            imageSrc={featuredSmall?.childImageSharp?.fixed?.src}
-            title={title}
-            intro={content}
-            // extra={article.extra}
-            tag={
-                <Tag offsetColor={categories[0]?.color}>
-                    <Link to={`/${categories[0]?.slug}`}>
-                        {categories && `#${categories[0].name}`}
-                    </Link>
-                </Tag>
-            }
-            offsetColor={offsetColor}
-            slug={slug}
-        />
-    ))
-);
+const getArticleCards = (articles = [], offsetColor, limit) =>
+    articles
+        .slice(0, limit)
+        .map(
+            ({
+                title,
+                id,
+                user,
+                featuredSmall,
+                content,
+                creationDate,
+                categories,
+                slug,
+            }) => (
+                <ArticleCard
+                    key={id}
+                    imageSrc={featuredSmall?.childImageSharp?.fixed?.src}
+                    title={title}
+                    intro={content}
+                    // extra={article.extra}
+                    tag={
+                        <Tag offsetColor={categories[0]?.color}>
+                            <Link to={`/${categories[0]?.slug}`}>
+                                {categories && `#${categories[0].name}`}
+                            </Link>
+                        </Tag>
+                    }
+                    offsetColor={offsetColor}
+                    slug={slug}
+                />
+            )
+        );
 
-const ArticlesSection = ({
-    articles,
-    theme = 'white',
-    title,
-    limit = 3
-}) => {
+const ArticlesSection = ({ articles, theme = 'white', title, limit = 3 }) => {
     const isBlue = theme === 'blue';
 
     const bgColor = isBlue && COLOR_CYAN_LIGHT;
@@ -75,9 +69,7 @@ const ArticlesSection = ({
     return (
         <Section title={title} bgColor={bgColor}>
             <ArticlesWrapper>
-                {
-                    getArticleCards(articles, offsetColor, limit)
-                }
+                {getArticleCards(articles, offsetColor, limit)}
             </ArticlesWrapper>
         </Section>
     );
@@ -86,39 +78,38 @@ const ArticlesSection = ({
 export default ArticlesSection;
 export const query = graphql`
   fragment ArticlesSectionFragment on StrapiArticles {
-    title,
-    id,
+    title
+    id
     user {
-
-        displayName,
-        avatar {
-            publicURL
+      displayName
+      avatar {
+        publicURL
+      }
+    }
+    featuredBig: featuredImage {
+      childImageSharp {
+        fixed(width: 726, quality: 95) {
+          src
+          srcSet
         }
-    },
-    featuredBig:featuredImage {
-        childImageSharp{
-            fixed(width: 726, quality: 95) {
-                src,
-                srcSet
-            }
+      }
+    }
+    featuredSmall: featuredImage {
+      childImageSharp {
+        fixed(width: 414, quality: 95) {
+          src
+          srcSet
         }
-    },
-    featuredSmall:featuredImage {
-        childImageSharp{
-            fixed(width: 414, quality: 95) {
-                src,
-                srcSet
-            }
-        }
-    },
-    content,
+      }
+    }
+    content
     creationDate
     categories {
-        color
-        name
-        id
-        slug
-    },
+      color
+      name
+      id
+      slug
+    }
     slug
   }
 `;

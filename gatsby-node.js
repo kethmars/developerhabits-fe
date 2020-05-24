@@ -32,13 +32,11 @@ const articlesParams = `
         color
         slug
     }
-`;
+`
 
-exports.createPages = async({
-    actions: { createPage },
-    graphql }
-// eslint-disable-next-line consistent-return
-) => {
+exports.createPages = async ({ actions: { createPage }, graphql }) =>
+  // eslint-disable-next-line consistent-return
+  {
     const { data } = await graphql(`
         query {
             articleData:allStrapiArticles {
@@ -55,13 +53,13 @@ exports.createPages = async({
                 }
             }
         }
-    `);
+    `)
 
-    const { articleData, articleCategories } = data;
-    
+    const { articleData, articleCategories } = data
+
     for (const article of articleData.nodes) {
-        const firstCategoryId = article.categories[0].id;
-        const { data: relatedArticles } = await graphql(`
+      const firstCategoryId = article.categories[0].id
+      const { data: relatedArticles } = await graphql(`
             query {
                 allStrapiArticles(
                     filter: {
@@ -82,22 +80,23 @@ exports.createPages = async({
                     }
                 }
             }
-        `);
+        `)
 
-        await createPage({
-            path: `/articles/${article.slug}`,
-            component: require.resolve('./src/templates/article.js'),
-            context: {
-                ...article,
-                relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
-            },
-        });
+      await createPage({
+        path: `/articles/${article.slug}`,
+        component: require.resolve("./src/templates/article.js"),
+        context: {
+          ...article,
+          relatedArticles:
+            relatedArticles && relatedArticles.allStrapiArticles.nodes,
+        },
+      })
     }
 
-    console.log('Artcielca', JSON.stringify(articleCategories.nodes, null, 4));
+    console.log("Artcielca", JSON.stringify(articleCategories.nodes, null, 4))
 
     for (const category of articleCategories.nodes) {
-        const { data: articlesData } = await graphql(`
+      const { data: articlesData } = await graphql(`
             query {
                 allStrapiArticles(
                     filter: {
@@ -115,15 +114,15 @@ exports.createPages = async({
                     }
                 }
             }
-        `);
+        `)
 
-        await createPage({
-            path: `/${category.slug}`,
-            component: require.resolve('./src/templates/category.js'),
-            context: {
-                ...category,
-                articles: articlesData.allStrapiArticles.nodes || []
-            }
-        });
+      await createPage({
+        path: `/${category.slug}`,
+        component: require.resolve("./src/templates/category.js"),
+        context: {
+          ...category,
+          articles: articlesData.allStrapiArticles.nodes || [],
+        },
+      })
     }
-};
+  }

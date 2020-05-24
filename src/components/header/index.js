@@ -13,7 +13,7 @@ import HeaderForDesktop from './desktop';
 const HeaderWrapper = styled.header`
   width: 100%;
   height: 110px;
-  box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   padding: 0 40px;
@@ -31,9 +31,9 @@ const HeaderContent = styled.div`
 
 const HeaderMenuItems = () => (
     <ul>
-        {
-            headerMenu.map(menuItem => <Link to={menuItem.link}>{menuItem.text}</Link>)
-        }
+        {headerMenu.map(menuItem => (
+            <Link to={menuItem.link}>{menuItem.text}</Link>
+        ))}
     </ul>
 );
 
@@ -43,11 +43,11 @@ const Header = () => {
     return (
         <HeaderWrapper>
             <HeaderContent>
-                {
-                    isMobile ?
-                        <HeaderForMobile MenuItems={HeaderMenuItems} /> :
-                        <HeaderForDesktop MenuItems={HeaderMenuItems} />
-                }
+                {isMobile ? (
+                    <HeaderForMobile MenuItems={HeaderMenuItems} />
+                ) : (
+                    <HeaderForDesktop MenuItems={HeaderMenuItems} />
+                )}
             </HeaderContent>
         </HeaderWrapper>
     );

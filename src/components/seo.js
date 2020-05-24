@@ -10,30 +10,25 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({
-    description,
-    lang,
-    meta,
-    title,
-    metaImage,
-    pathname
-}) {
+function SEO({ description, lang, meta, title, metaImage, pathname }) {
     const { site } = useStaticQuery(
         graphql`
-        query {
-            site {
-                siteMetadata {
-                title
-                description
-                author
-                }
-            }
+      query {
+        site {
+          siteMetadata {
+            title
+            description
+            author
+          }
         }
-    `);
+      }
+    `
+    );
 
     const metaDescription = description || site.siteMetadata.description;
     const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
-    const image = metaImage && metaImage.src
+    const image =
+    metaImage && metaImage.src
         ? `${site.siteMetadata.siteUrl}${metaImage.src}`
         : null;
 
@@ -121,8 +116,7 @@ function SEO({
                         ]
                 )
                 .concat(meta)}
-        >
-        </Helmet>
+        ></Helmet>
     );
 }
 

@@ -1,11 +1,12 @@
-require('dotenv').config({  
+require('dotenv').config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
 module.exports = {
     siteMetadata: {
         title: 'DeveloperHabits',
-        description: 'A blog for developers who are interested in growth mindset, developer lifestyle and web dev tutorials',
+        description:
+      'A blog for developers who are interested in growth mindset, developer lifestyle and web dev tutorials',
         author: '@developerHabits',
     },
     plugins: [
@@ -30,20 +31,16 @@ module.exports = {
             resolve: 'gatsby-source-filesystem',
             options: {
                 name: 'images',
-                path: `${__dirname}/src/images`, 
+                path: `${__dirname}/src/images`,
             },
         },
         {
             resolve: 'gatsby-source-strapi',
             options: {
                 apiURL: 'https://developerhabits-cms.herokuapp.com',
-                contentTypes: [
-                    'articles',
-                    'users',
-                    'categories',
-                ],
+                contentTypes: [ 'articles', 'users', 'categories' ],
                 queryLimit: 1000,
             },
         },
-    ]
+    ],
 };

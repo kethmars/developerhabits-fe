@@ -22,7 +22,9 @@ const MenuButton = styled.button`
   outline: none;
   z-index: 100;
 
-	${props => props.active && `
+  ${props =>
+        props.active &&
+    `
 		position: fixed;
 		right: 40px;
 	`}
@@ -48,22 +50,20 @@ const HeaderModalWrapper = styled.div`
   top: 0;
   text-align: center;
   z-index: 10;
-  
+
   li {
-	  display: block;
+    display: block;
   }
 
   a {
-	  display: block;
-	  padding: 30px;
-	  font-size: 30px;
+    display: block;
+    padding: 30px;
+    font-size: 30px;
   }
 `;
 
 const HeaderModal = ({ children }) => (
-    <HeaderModalWrapper>
-        { children }
-    </HeaderModalWrapper>
+    <HeaderModalWrapper>{children}</HeaderModalWrapper>
 );
 
 const HeaderForMobile = ({ MenuItems }) => {
@@ -79,17 +79,14 @@ const HeaderForMobile = ({ MenuItems }) => {
                 active={isMenuOpen}
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-                <img
-                    src={isMenuOpen ? CloseIcon : MenuIcon}
-                    alt="menu"
-                />
+                <img src={isMenuOpen ? CloseIcon : MenuIcon} alt="menu" />
             </MenuButton>
 
-            { isMenuOpen &&
+            {isMenuOpen && (
                 <HeaderModal>
-                    <MenuItems/>
+                    <MenuItems />
                 </HeaderModal>
-            }
+            )}
         </>
     );
 };

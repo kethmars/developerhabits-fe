@@ -2,99 +2,96 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 
-import {
-    COLOR_LIGHT_GRAY,
-    COLOR_DARK_BLUE
-} from '../constants';
+import { COLOR_LIGHT_GRAY, COLOR_DARK_BLUE } from '../constants';
 
 const CardWrapper = styled.div`
-    display: block;
-    width: 100%;
-    position: relative;
+  display: block;
+  width: 100%;
+  position: relative;
 
-    &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: ${props => props.offsetColor || COLOR_LIGHT_GRAY};
-        top: 10px;
-        left: 10px;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: ${props => props.offsetColor || COLOR_LIGHT_GRAY};
+    top: 10px;
+    left: 10px;
+  }
 `;
 
 const CardInnerWrapper = styled.div`
-    position: relative;
-    display: block;
-    background-color: #fff;
-    height: 100%;
-    border: ${props => props.disableBorder || `solid 1px ${COLOR_LIGHT_GRAY}`};
+  position: relative;
+  display: block;
+  background-color: #fff;
+  height: 100%;
+  border: ${props => props.disableBorder || `solid 1px ${COLOR_LIGHT_GRAY}`};
 `;
 
 const CardImage = styled.div`
+  width: 100%;
+  height: 230px;
+  background-color: #000;
+  display: block;
+  background-image: url(${props => props.src});
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
     width: 100%;
-    height: 230px;
-    background-color: #000;
-    display: block;
-    background-image: url(${props => props.src});
-    background-position: center;
-    background-size: cover;
-    position: relative;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    transition: 0.2s ease all;
+  }
 
-    &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        background-color: #fff;
-        opacity: 0;
-        transition: 0.2s ease all;
-    }
-
-    &:hover::before {
-        opacity: 0.2;
-    }
+  &:hover::before {
+    opacity: 0.2;
+  }
 `;
 
 const CardContent = styled.div`
-    padding: 30px;
-    color: ${COLOR_DARK_BLUE};
-    word-break: break-word;
+  padding: 30px;
+  color: ${COLOR_DARK_BLUE};
+  word-break: break-word;
 `;
 
 const CardTitle = styled.h3`
-    font-family: 'Roboto';
-    font-weight: 600;
-    font-size: 1.25rem;
-    display: inline-block;
-    margin-top: 30px;
-    margin-bottom: 0;
-    
-    a {
-        color: inherit;
-        text-decoration: none;
+  font-family: "Roboto";
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: inline-block;
+  margin-top: 30px;
+  margin-bottom: 0;
 
-        &:hover {
-            text-decoration: underline;
-        }
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
     }
+  }
 `;
 
 const CardIntro = styled.p`
-    font-family: 'Roboto';
-    font-weight: 300;
-    font-size: 1.125rem;
-    display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 0;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 1.125rem;
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 0;
 `;
 
 const CardExtraData = styled.span`
-    font-family: 'Roboto';
-    font-weight: 300;
-    font-size: 1rem;
-    display: inline-block;
-    margin-top: 20px;
+  font-family: "Roboto";
+  font-weight: 300;
+  font-size: 1rem;
+  display: inline-block;
+  margin-top: 20px;
 `;
 
 const ArticleCard = ({
@@ -104,9 +101,9 @@ const ArticleCard = ({
     extra,
     imageSrc,
     offsetColor,
-    slug
+    slug,
 }) => {
-    const getCardIntro = (text) => {
+    const getCardIntro = text => {
         const textLength = 125;
 
         if (!text) {
@@ -124,17 +121,17 @@ const ArticleCard = ({
         <CardWrapper offsetColor={offsetColor}>
             <CardInnerWrapper>
                 <Link to={`/articles/${slug}`}>
-                    <CardImage src={imageSrc || ''} />
+                    <CardImage src={imageSrc || ''} />
                 </Link>
                 <CardContent>
-                    { tag }
-                    { title &&
+                    {tag}
+                    {title && (
                         <CardTitle>
                             <Link to={`/articles/${slug}`}>{title}</Link>
                         </CardTitle>
-                    }
-                    { intro && <CardIntro>{ getCardIntro(intro) }</CardIntro> }
-                    { extra && <CardExtraData>{ extra }</CardExtraData> }
+                    )}
+                    {intro && <CardIntro>{getCardIntro(intro)}</CardIntro>}
+                    {extra && <CardExtraData>{extra}</CardExtraData>}
                 </CardContent>
             </CardInnerWrapper>
         </CardWrapper>

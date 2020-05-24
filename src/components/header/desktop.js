@@ -33,7 +33,7 @@ const MenuWrapper = styled.nav`
     color: #000;
     padding: 15px;
     position: relative;
-    
+
     &::before {
       content: "";
       transition: 0.25s ease all;
@@ -59,7 +59,7 @@ const HeaderForDesktop = ({ MenuItems }) => (
         </Link>
 
         <MenuWrapper>
-            <MenuItems/>
+            <MenuItems />
         </MenuWrapper>
     </>
 );
