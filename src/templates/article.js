@@ -82,6 +82,8 @@ const IndexPage = ({ pageContext, location }) => {
         facebookUrl: `https://www.facebook.com/sharer.php?u=${shareLink}`,
     };
 
+    //TODO: Refactor
+
     return (
         <Layout>
             <SEO
@@ -97,7 +99,7 @@ const IndexPage = ({ pageContext, location }) => {
                     <CategoriesWrapper>
                         {pageContext.categories.map(category => (
                             <ColorfulTag key={category.id} color={category.color}>
-                #{category.name}
+                                #{category.name}
                             </ColorfulTag>
                         ))}
                     </CategoriesWrapper>
@@ -111,8 +113,8 @@ const IndexPage = ({ pageContext, location }) => {
                     />
                 </ArticleHeader>
 
-                {pageContext?.featuredImage?.publicURL && (
-                    <FeaturedArticleImage src={pageContext.featuredImage.publicURL} />
+                {pageContext?.featuredBig?.childImageSharp?.fixed?.src && (
+                    <FeaturedArticleImage src={pageContext?.featuredBig?.childImageSharp?.fixed?.src} />
                 )}
 
                 <ArticleContent>
