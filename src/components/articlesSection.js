@@ -19,6 +19,7 @@ const ArticlesWrapper = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: ${PAGE_SIZES.desktop.columnGap}px;
+    grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
 
     @media (max-width: 800px) {
         grid-template-columns: 1fr;
@@ -26,12 +27,16 @@ const ArticlesWrapper = styled.div`
     }
 `;
 
-const getArticleCards = (articles = [], offsetColor) => (
-    articles.slice(0, 3).map(({
+const getArticleCards = (
+    articles = [],
+    offsetColor,
+    limit
+) => (
+    articles.slice(0, limit).map(({
         title,
         id,
         user,
-        featuredImage,
+        featuredSmall,
         content,
         creationDate,
         categories,
@@ -39,7 +44,7 @@ const getArticleCards = (articles = [], offsetColor) => (
     }) => (
         <ArticleCard
             key={id}
-            imageSrc={featuredImage && featuredImage.publicURL}
+            imageSrc={featuredSmall?.childImageSharp?.fixed?.src}
             title={title}
             intro={content}
             // extra={article.extra}
@@ -59,7 +64,8 @@ const getArticleCards = (articles = [], offsetColor) => (
 const ArticlesSection = ({
     articles,
     theme = 'white',
-    title
+    title,
+    limit = 3
 }) => {
     const isBlue = theme === 'blue';
 
@@ -70,7 +76,7 @@ const ArticlesSection = ({
         <Section title={title} bgColor={bgColor}>
             <ArticlesWrapper>
                 {
-                    getArticleCards(articles, offsetColor)
+                    getArticleCards(articles, offsetColor, limit)
                 }
             </ArticlesWrapper>
         </Section>
@@ -89,8 +95,21 @@ export const query = graphql`
             publicURL
         }
     },
-    featuredImage {
-        publicURL
+    featuredBig:featuredImage {
+        childImageSharp{
+            fixed(width: 726, quality: 95) {
+                src,
+                srcSet
+            }
+        }
+    },
+    featuredSmall:featuredImage {
+        childImageSharp{
+            fixed(width: 414, quality: 95) {
+                src,
+                srcSet
+            }
+        }
     },
     content,
     creationDate

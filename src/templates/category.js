@@ -13,6 +13,7 @@ const IndexPage = ({ pageContext }) => (
                 <ArticlesSection
                     title={`#${pageContext.name}`}
                     articles={pageContext.articles}
+                    limit={15}
                 /> :
                 ''
         }

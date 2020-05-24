@@ -25,7 +25,7 @@ const FeaturedArticleSection = ({
         <Section>
             <FeaturedArticle
                 title={featuredArticle?.title}
-                imageSrc={featuredArticle?.featuredImage?.publicURL}
+                imageSrc={featuredArticle?.featuredBig?.childImageSharp?.fixed?.src}
                 content={featuredArticle.content}
                 categories={featuredArticle.categories}
                 author={featuredArticle.user}

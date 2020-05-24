@@ -91,6 +91,7 @@ const FeaturedArticleCard = ({
 }) => (
     <CardWrapper>
         <CardContent>
+            {JSON.stringify(author)}
             <TextWithIcon
                 iconSrc={author?.avatar?.publicURL}
                 text={`${creationDate}, ${author.displayName || ''}`}

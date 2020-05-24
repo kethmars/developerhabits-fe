@@ -110,7 +110,7 @@ const IndexPage = ({ pageContext, location }) => {
                     </CategoriesWrapper>
 
                     <TextWithIcon
-                        iconSrc={pageContext.user.avatar.publicURL}
+                        iconSrc={pageContext.user.avatar?.publicURL}
                         text={`${pageContext.creationDate || pageContext.created_at || ''} ${pageContext.user.displayName || ''}`}
                         alt={pageContext.user.displayName || ''}
                     />

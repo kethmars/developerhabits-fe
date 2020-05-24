@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 import FeaturedArticleCard from './featuredArticleCard';
 
-import featuredImage from '../images/kethmar.jpg';
-
 const FeaturedArticleWrapper = styled.div`
     width: 100%;
     display: flex;

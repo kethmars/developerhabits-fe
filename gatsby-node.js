@@ -8,8 +8,21 @@ const articlesParams = `
             publicURL
         }
     },
-    featuredImage {
-        publicURL
+    featuredBig:featuredImage {
+        childImageSharp{
+            fixed(width: 726, quality: 95) {
+                src,
+                srcSet
+            }
+        }
+    },
+    featuredSmall:featuredImage {
+        childImageSharp{
+            fixed(width: 414, quality: 95) {
+                src,
+                srcSet
+            }
+        }
     },
     content,
     creationDate
@@ -24,8 +37,8 @@ const articlesParams = `
 exports.createPages = async({
     actions: { createPage },
     graphql }
+// eslint-disable-next-line consistent-return
 ) => {
-    console.log('1');
     const { data } = await graphql(`
         query {
             articleData:allStrapiArticles {
@@ -44,19 +57,10 @@ exports.createPages = async({
         }
     `);
 
-    console.log('data', data);
-
     const { articleData, articleCategories } = data;
-
-    console.log(JSON.stringify(articleCategories, null, 4));
-
-    articleData.nodes.forEach(async article => {
-        console.log('2');
-        console.log('article.categories[0]', article.categories[0]);
+    
+    for (const article of articleData.nodes) {
         const firstCategoryId = article.categories[0].id;
-
-        console.log('frist', firstCategoryId);
-
         const { data: relatedArticles } = await graphql(`
             query {
                 allStrapiArticles(
@@ -80,9 +84,7 @@ exports.createPages = async({
             }
         `);
 
-        console.log('Related artcles', relatedArticles);
-
-        createPage({
+        await createPage({
             path: `/articles/${article.slug}`,
             component: require.resolve('./src/templates/article.js'),
             context: {
@@ -90,11 +92,11 @@ exports.createPages = async({
                 relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
             },
         });
-        console.log('3');
-    });
+    }
 
-    articleCategories.nodes.forEach(async category => {
-        console.log('4', category.slug);
+    console.log('Artcielca', JSON.stringify(articleCategories.nodes, null, 4));
+
+    for (const category of articleCategories.nodes) {
         const { data: articlesData } = await graphql(`
             query {
                 allStrapiArticles(
@@ -102,7 +104,7 @@ exports.createPages = async({
                         categories: {
                             elemMatch: {
                                 id: {
-                                    eq: "${category.id}"
+                                    eq: "${category.strapiId}"
                                 }
                             }
                         }
@@ -115,9 +117,7 @@ exports.createPages = async({
             }
         `);
 
-        console.log('Articles data', articlesData);
-
-        createPage({
+        await createPage({
             path: `/${category.slug}`,
             component: require.resolve('./src/templates/category.js'),
             context: {
@@ -125,8 +125,5 @@ exports.createPages = async({
                 articles: articlesData.allStrapiArticles.nodes || []
             }
         });
-        console.log('5');
-    });
-
-    console.log('All good in page creation');
+    }
 };
