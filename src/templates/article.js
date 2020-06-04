@@ -95,7 +95,6 @@ const IndexPage = ({ pageContext, location }) => {
     };
 
     //TODO: Refactor
-
     return (
         <Layout>
             <SEO
@@ -116,13 +115,15 @@ const IndexPage = ({ pageContext, location }) => {
                         ))}
                     </CategoriesWrapper>
 
-                    <TextWithIcon
-                        iconSrc={pageContext.user.avatar?.publicURL}
-                        text={`${
-                            pageContext.creationDate || pageContext.created_at || ''
-                        } ${pageContext.user.displayName || ''}`}
-                        alt={pageContext.user.displayName || ''}
-                    />
+                    {pageContext.user.avatar?.publicURL && 
+                        <TextWithIcon
+                            iconSrc={pageContext.user.avatar?.publicURL}
+                            text={`${
+                                pageContext.creationDate || pageContext.created_at || ''
+                            } ${pageContext.user.displayName || ''}`}
+                            alt={pageContext.user.displayName || ''}
+                        />
+                    }
                 </ArticleHeader>
 
                 {pageContext?.featuredBig?.childImageSharp?.fixed?.src && (
