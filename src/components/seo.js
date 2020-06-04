@@ -10,21 +10,27 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
 
-function SEO({ description, lang, meta, title }) {
+function SEO({ description, lang, meta, title, metaImage, pathname }) {
     const { site } = useStaticQuery(
         graphql`
-        query {
-            site {
-                siteMetadata {
-                title
-                description
-                author
-                }
-            }
+      query {
+        site {
+          siteMetadata {
+            title
+            description
+            author
+          }
         }
-    `);
+      }
+    `
+    );
 
     const metaDescription = description || site.siteMetadata.description;
+    const canonical = pathname ? `${site.siteMetadata.siteUrl}${pathname}` : null;
+    const image =
+    metaImage && metaImage.src
+        ? `${site.siteMetadata.siteUrl}${metaImage.src}`
+        : null;
 
     return (
         <Helmet
@@ -33,6 +39,16 @@ function SEO({ description, lang, meta, title }) {
             }}
             title={title}
             titleTemplate={`%s | ${site.siteMetadata.title}`}
+            link={
+                canonical
+                    ? [
+                        {
+                            rel: 'canonical',
+                            href: canonical,
+                        },
+                    ]
+                    : []
+            }
             meta={[
                 {
                     name: 'description',
@@ -66,8 +82,41 @@ function SEO({ description, lang, meta, title }) {
                     name: 'twitter:description',
                     content: metaDescription,
                 },
-            ].concat(meta)}
-        />
+                {
+                    name: 'keywords',
+                    content: `developer habits, developers, habits, software engineering, growth mindset,
+                            developer lifestyle, webdev tutorials, web development tutorials`,
+                },
+            ]
+                .concat(
+                    metaImage
+                        ? [
+                            {
+                                property: 'og:image',
+                                content: image,
+                            },
+                            {
+                                property: 'og:image:width',
+                                content: metaImage.width,
+                            },
+                            {
+                                property: 'og:image:height',
+                                content: metaImage.height,
+                            },
+                            {
+                                name: 'twitter:card',
+                                content: 'summary_large_image',
+                            },
+                        ]
+                        : [
+                            {
+                                name: 'twitter:card',
+                                content: 'summary',
+                            },
+                        ]
+                )
+                .concat(meta)}
+        ></Helmet>
     );
 }
 
@@ -82,6 +131,12 @@ SEO.propTypes = {
     lang: PropTypes.string,
     meta: PropTypes.arrayOf(PropTypes.object),
     title: PropTypes.string.isRequired,
+    image: PropTypes.shape({
+        src: PropTypes.string.isRequired,
+        height: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
+    }),
+    pathname: PropTypes.string,
 };
 
 export default SEO;

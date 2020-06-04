@@ -1,47 +1,63 @@
-const articleNodesString = `
-    nodes {
-        title,
-        slug,
-        id,
-        user {
-
-            displayName,
-            avatar {
-                publicURL
-            }
-        },
-        featuredImage {
+const articlesParams = `
+    title,
+    slug,
+    id,
+    user {
+        displayName,
+        avatar {
             publicURL
-        },
-        content,
-        creationDate
-        categories {
-            name
-            id
-            color
         }
+    },
+    featuredBig:featuredImage {
+        childImageSharp{
+            fixed(width: 726, quality: 95) {
+                src,
+                srcSet
+            }
+        }
+    },
+    featuredSmall:featuredImage {
+        childImageSharp{
+            fixed(width: 414, quality: 95) {
+                src,
+                srcSet
+            }
+        }
+    },
+    content,
+    creationDate
+    categories {
+        name
+        id
+        color
+        slug
     }
 `;
 
-exports.createPages = async({
-    actions: { createPage },
-    graphql }
-) => {
-    const { data:articleData } = await graphql(`
+// eslint-disable-next-line consistent-return
+exports.createPages = async({ actions: { createPage }, graphql }) => {
+    const { data } = await graphql(`
         query {
-            allStrapiArticles {
-                ${articleNodesString}
+            articleData:allStrapiArticles {
+                nodes {
+                    ${articlesParams}
+                }
+            }
+            articleCategories:allStrapiCategories {
+                nodes {
+                    id,
+                    name,
+                    slug,
+                    strapiId
+                }
             }
         }
     `);
-    
-    //TODO: SET UP Debugger;
-    if (!articleData.allStrapiArticles.nodes.length) {
-        return;
-    }
 
-    articleData.allStrapiArticles.nodes.forEach(async article => {
-        const firstCategory = article.categories[0].id;
+    const { articleData, articleCategories } = data;
+
+    for (const article of articleData.nodes) {
+        const firstCategoryId = article.categories[0].id;
         const { data: relatedArticles } = await graphql(`
             query {
                 allStrapiArticles(
@@ -49,7 +65,7 @@ exports.createPages = async({
                         categories: {
                             elemMatch: {
                                 id: {
-                                    eq: ${firstCategory}
+                                    eq: "${firstCategoryId}"
                                 }
                             }
                         },
@@ -58,18 +74,52 @@ exports.createPages = async({
                         }
                     }
                 ) {
-                    ${articleNodesString}
+                    nodes {
+                        ${articlesParams}
+                    }
                 }
             }
         `);
 
-        createPage({
+        await createPage({
             path: `/articles/${article.slug}`,
             component: require.resolve('./src/templates/article.js'),
             context: {
                 ...article,
-                relatedArticles: relatedArticles && relatedArticles.allStrapiArticles.nodes
+                relatedArticles:
+            relatedArticles && relatedArticles.allStrapiArticles.nodes,
             },
         });
-    });
+    }
+
+    for (const category of articleCategories.nodes) {
+        const { data: articlesData } = await graphql(`
+            query {
+                allStrapiArticles(
+                    filter: {
+                        categories: {
+                            elemMatch: {
+                                id: {
+                                    eq: "${category.strapiId}"
+                                }
+                            }
+                        }
+                    }
+                ) {
+                    nodes {
+                        ${articlesParams}
+                    }
+                }
+            }
+        `);
+
+        await createPage({
+            path: `/${category.slug}`,
+            component: require.resolve('./src/templates/category.js'),
+            context: {
+                ...category,
+                articles: articlesData.allStrapiArticles.nodes || [],
+            },
+        });
+    }
 };

@@ -1,9 +1,9 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 
 import {
-    COLUMN_GAP,
+    PAGE_SIZES,
     COLOR_CYAN_LIGHT,
     COLOR_CYAN,
     COLOR_LIGHT_GRAY,
@@ -14,42 +14,56 @@ import ArticleCard from '../components/articleCard';
 import Tag from '../components/text/tag';
 
 const ArticlesWrapper = styled.div`
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: ${COLUMN_GAP}px;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: ${PAGE_SIZES.desktop.columnGap}px;
+  grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
+
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
-const getArticleCards = (articles = [], offsetColor) => (
-    articles.slice(0, 3).map(({
-        title,
-        id,
-        user,
-        featuredImage,
-        content,
-        creationDate,
-        categories,
-        slug
-    }) => (
-        <ArticleCard
-            key={id}
-            imageSrc={featuredImage && featuredImage.publicURL}
-            title={title}
-            intro={content}
-            // extra={article.extra}
-            tag={<Tag offsetColor={categories[0]?.color}>{categories && categories[0].name}</Tag>}
-            offsetColor={offsetColor}
-            slug={slug}
-        />
-    ))
-);
+const getArticleCards = (articles = [], offsetColor, limit) =>
+    articles
+        .slice(0, limit)
+        .map(
+            ({
+                title,
+                id,
+                user,
+                featuredSmall,
+                content,
+                creationDate,
+                categories,
+                slug,
+            }) => (
+                <ArticleCard
+                    key={id}
+                    imageSrc={featuredSmall?.childImageSharp?.fixed?.src}
+                    title={title}
+                    intro={content}
+                    // extra={article.extra}
+                    tag={
+                        <>
+                            {categories.map(category => 
+                                <Tag offsetColor={category?.color}>
+                                    <Link to={`/${category?.slug}`}>
+                                        {categories && `#${category.name}`}
+                                    </Link>
+                                </Tag>
+                            )}
+                        </>
+                    }
+                    offsetColor={offsetColor}
+                    slug={slug}
+                />
+            )
+        );
 
-const ArticlesSection = ({
-    articles,
-    theme = 'white',
-    title
-}) => {
+const ArticlesSection = ({ articles, theme = 'white', title, limit = 3 }) => {
     const isBlue = theme === 'blue';
 
     const bgColor = isBlue && COLOR_CYAN_LIGHT;
@@ -58,9 +72,7 @@ const ArticlesSection = ({
     return (
         <Section title={title} bgColor={bgColor}>
             <ArticlesWrapper>
-                {
-                    getArticleCards(articles, offsetColor)
-                }
+                {getArticleCards(articles, offsetColor, limit)}
             </ArticlesWrapper>
         </Section>
     );
@@ -69,25 +81,38 @@ const ArticlesSection = ({
 export default ArticlesSection;
 export const query = graphql`
   fragment ArticlesSectionFragment on StrapiArticles {
-    title,
-    id,
+    title
+    id
     user {
-
-        displayName,
-        avatar {
-            publicURL
-        }
-    },
-    featuredImage {
+      displayName
+      avatar {
         publicURL
-    },
-    content,
+      }
+    }
+    featuredBig: featuredImage {
+      childImageSharp {
+        fixed(width: 726, quality: 95) {
+          src
+          srcSet
+        }
+      }
+    }
+    featuredSmall: featuredImage {
+      childImageSharp {
+        fixed(width: 414, quality: 95) {
+          src
+          srcSet
+        }
+      }
+    }
+    content
     creationDate
     categories {
-        color
-        name
-        id
-    },
+      color
+      name
+      id
+      slug
+    }
     slug
   }
 `;

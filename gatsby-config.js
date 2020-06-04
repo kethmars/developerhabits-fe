@@ -1,11 +1,12 @@
-require('dotenv').config({  
+require('dotenv').config({
     path: `.env.${process.env.NODE_ENV}`,
 });
 
 module.exports = {
     siteMetadata: {
         title: 'DeveloperHabits',
-        description: 'A blog for developers who are interested in growth mindset, developer lifestyle and web dev tutorials',
+        description:
+      'A blog for developers who are interested in growth mindset, developer lifestyle and web dev tutorials',
         author: '@developerHabits',
     },
     plugins: [
@@ -14,7 +15,6 @@ module.exports = {
         'gatsby-plugin-eslint',
         'gatsby-transformer-sharp',
         'gatsby-plugin-sharp',
-        'gatsby-transformer-json',
         {
             resolve: 'gatsby-plugin-manifest',
             options: {
@@ -31,27 +31,16 @@ module.exports = {
             resolve: 'gatsby-source-filesystem',
             options: {
                 name: 'images',
-                path: `${__dirname}/src/images`, 
-            },
-        },
-        {
-            resolve: 'gatsby-source-filesystem',
-            options: {
-                name: 'products',
-                path: './data', 
+                path: `${__dirname}/src/images`,
             },
         },
         {
             resolve: 'gatsby-source-strapi',
             options: {
-                apiURL: process.env.API_URL || 'http://localhost:1337',
-                contentTypes: [
-                    'articles',
-                    'users',
-                    'categories',
-                ],
+                apiURL: 'https://developerhabits-cms.herokuapp.com',
+                contentTypes: [ 'articles', 'users', 'categories' ],
                 queryLimit: 1000,
             },
         },
-    ]
+    ],
 };
