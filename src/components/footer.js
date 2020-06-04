@@ -89,23 +89,31 @@ const Footer = () => (
     <FooterWrapper>
         <FooterContent>
             <FooterColumn>
-                <LogoImage src={Logo} />
+                <LogoImage alt="developerhabits logo" src={Logo} />
                 <span>DeveloperHabits by Kethmar Salumets</span>
             </FooterColumn>
 
             <FooterColumn contentCenter>
-                <a href="https://www.instagram.com/developerhabits/" target="_blank">
-                    <IconImage src={Instagram} />
+                <a
+                    href="https://www.instagram.com/developerhabits/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <IconImage alt="instagram" src={Instagram} />
                 </a>
-                <a href="https://twitter.com/developerHabits" target="_blank">
-                    <IconImage src={Twitter} />
+                <a
+                    href="https://twitter.com/developerHabits"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <IconImage alt="twitter" src={Twitter} />
                 </a>
                 <a
                     href="https://www.youtube.com/channel/UCJLZwePkNHps5Bv7VwISyTA/"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <IconImage src={Youtube} />
+                    <IconImage alt="youtube" src={Youtube} />
                 </a>
             </FooterColumn>
 
