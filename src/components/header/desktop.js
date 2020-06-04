@@ -17,6 +17,9 @@ const MenuWrapper = styled.nav`
   margin-left: calc(${PAGE_SIZES.desktop.columnGap}px - 15px);
 
   ul {
+    width: auto;
+    display: flex;
+    flex: 1 1 auto;
     margin: 0;
     list-style: none;
   }
@@ -33,6 +36,7 @@ const MenuWrapper = styled.nav`
     color: #000;
     padding: 15px;
     position: relative;
+    box-sizing: border-box;
 
     &::before {
       content: "";
