@@ -23,7 +23,6 @@ const ArticlesWrapper = styled.div`
 
   @media (max-width: 800px) {
     grid-template-columns: 1fr;
-    grid-row-gap: ${PAGE_SIZES.desktop.columnGap}px;
   }
 `;
 
@@ -48,11 +47,15 @@ const getArticleCards = (articles = [], offsetColor, limit) =>
                     intro={content}
                     // extra={article.extra}
                     tag={
-                        <Tag offsetColor={categories[0]?.color}>
-                            <Link to={`/${categories[0]?.slug}`}>
-                                {categories && `#${categories[0].name}`}
-                            </Link>
-                        </Tag>
+                        <>
+                            {categories.map(category => 
+                                <Tag offsetColor={category?.color}>
+                                    <Link to={`/${category?.slug}`}>
+                                        {categories && `#${category.name}`}
+                                    </Link>
+                                </Tag>
+                            )}
+                        </>
                     }
                     offsetColor={offsetColor}
                     slug={slug}

@@ -94,6 +94,28 @@ const CardExtraData = styled.span`
   margin-top: 20px;
 `;
 
+const ArticleTags = styled.div`
+  margin-top: -15px;
+`;
+
+const getCardIntro = text => {      
+    if (!text) {
+        return '';
+    }
+
+    const textLength = 125;
+
+    let clearedText = text
+        .replace(/\[(.*?)\]/, '')
+        .replace(/\((.*?)\)/, '');
+
+    if (clearedText.length < textLength) {
+        return clearedText;
+    }
+
+    return clearedText && `${clearedText.substring(0, textLength)}...`;
+};
+
 const ArticleCard = ({
     tag,
     title,
@@ -103,20 +125,6 @@ const ArticleCard = ({
     offsetColor,
     slug,
 }) => {
-    const getCardIntro = text => {
-        const textLength = 125;
-
-        if (!text) {
-            return '';
-        }
-
-        if (text.length < textLength) {
-            return text;
-        }
-
-        return text && `${text.substring(0, textLength)}...`;
-    };
-
     return (
         <CardWrapper offsetColor={offsetColor}>
             <CardInnerWrapper>
@@ -124,7 +132,7 @@ const ArticleCard = ({
                     <CardImage src={imageSrc || ''} />
                 </Link>
                 <CardContent>
-                    {tag}
+                    <ArticleTags>{tag}</ArticleTags>
                     {title && (
                         <CardTitle>
                             <Link to={`/articles/${slug}`}>{title}</Link>

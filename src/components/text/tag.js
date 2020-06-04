@@ -8,6 +8,7 @@ const TagWrapper = styled.div`
   display: inline-block;
   position: relative;
   cursor: pointer;
+  margin: 15px 15px 0 0;
 
   &::before {
     content: "";
@@ -15,8 +16,8 @@ const TagWrapper = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${props => props.offsetColor || COLOR_CYAN};
-    top: 7px;
-    left: 7px;
+    top: 3px;
+    left: 3px;
     transition: 0.2s ease all;
   }
 `;
@@ -24,9 +25,9 @@ const TagWrapper = styled.div`
 const TagContent = styled.span`
   width: auto;
   height: auto;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   background-color: ${COLOR_DARK_BLUE};
-  padding: 5px;
+  padding: 3px;
   color: #fff;
   position: relative;
 

@@ -46,14 +46,12 @@ const FooterColumn = styled.div`
 
   @media (min-width: ${PAGE_SIZES.desktop.width}px) {
     ${props =>
-        props.contentCenter &&
-      `
+        props.contentCenter && `
             justify-content: center;
         `}
 
     ${props =>
-        props.contentRight &&
-      `
+        props.contentRight && `
             justify-content: flex-end;
         `}
   }
@@ -105,13 +103,18 @@ const Footer = () => (
                 <a
                     href="https://www.youtube.com/channel/UCJLZwePkNHps5Bv7VwISyTA/"
                     target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <IconImage src={Youtube} />
                 </a>
             </FooterColumn>
 
             <FooterColumn contentRight>
-                <FooterLink to="#">Contact me</FooterLink>
+                <FooterLink
+                    as="a"
+                    href="https://twitter.com/developerHabits">
+                    Contact me
+                </FooterLink>
             </FooterColumn>
         </FooterContent>
     </FooterWrapper>

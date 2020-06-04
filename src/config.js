@@ -4,11 +4,11 @@ export const headerMenu = [
         text: '#growthMindset',
     },
     {
-        link: '/tutorials',
-        text: '#tutorials',
+        link: '/career',
+        text: '#career',
     },
     {
-        link: '/lifestyle',
-        text: '#lifestyle',
+        link: '/featured',
+        text: '#featured',
     },
 ];

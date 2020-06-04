@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { COLOR_CYAN_DARK, COLOR_CYAN } from '../../constants';
+import { COLOR_CYAN_DARK, COLOR_CYAN, PAGE_SIZES } from '../../constants';
 
 export const ColorfulTag = styled.span`
   font-size: 1rem;
@@ -29,4 +29,8 @@ export const H1Title = styled.h1`
   font-family: "Roboto";
   font-weight: 700;
   line-height: 1.25em;
+
+  @media (max-width: ${PAGE_SIZES.tablet.width}px) {
+    font-size: ${props => (props.big ? '2rem' : '1.5rem')};
+  }
 `;

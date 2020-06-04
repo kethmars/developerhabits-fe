@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 
-import { PAGE_SIZES } from '../constants';
+import {
+    PAGE_SIZES,
+    COLOR_BLUE
+} from '../constants';
 
 import Layout from '../components/layout';
 import SEO from '../components/seo';
@@ -65,12 +68,21 @@ const ArticleContent = styled.div`
   h2,
   h3 {
     font-family: "Roboto";
+    white-space: break-spaces;
   }
 
   h2,
   h3 {
     font-weight: 500;
     margin-top: 40px;
+  }
+
+  a {
+      color: #000;
+
+      &:hover {
+        color: ${COLOR_BLUE};
+      }
   }
 `;
 

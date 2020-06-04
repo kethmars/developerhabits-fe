@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { Link } from 'gatsby';
 
-import { COLOR_CYAN_LIGHT, COLOR_BLUE, COLOR_LIGHT_GRAY } from '../constants';
+import { COLOR_CYAN_LIGHT, COLOR_LIGHT_GRAY } from '../constants';
 import TextWithIcon from './text/textWithIcon';
 import { ColorfulTag, H1Title, InlineBackground } from './text/typography';
 
@@ -91,7 +91,6 @@ const FeaturedArticleCard = ({
 }) => (
     <CardWrapper>
         <CardContent>
-            {JSON.stringify(author)}
             <TextWithIcon
                 iconSrc={author?.avatar?.publicURL}
                 text={`${creationDate}, ${author.displayName || ''}`}
@@ -109,7 +108,7 @@ const FeaturedArticleCard = ({
             <Categories>
                 {categories.map(category => (
                     <CategoryItem key={category.id} color={category.color} to="#">
-            #{category.name}
+                      #{category.name}
                     </CategoryItem>
                 ))}
             </Categories>
