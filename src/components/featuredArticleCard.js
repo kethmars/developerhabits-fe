@@ -94,7 +94,7 @@ const FeaturedArticleCard = ({
             <TextWithIcon
                 iconSrc={author?.avatar?.publicURL}
                 text={`${creationDate}, ${author.displayName || ''}`}
-                alt="cool"
+                alt={author.displayName || ''}
             />
 
             <H1Title style={{ maxWidth: '80%' }}>

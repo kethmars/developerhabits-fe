@@ -145,10 +145,6 @@ const IndexPage = ({ pageContext, location }) => {
             ) : (
                 ''
             )}
-
-            {/* <Section bgColor={COLOR_LIGHT_GRAY_2}>
-                <SubscriptionBlock bgColor={COLOR_LIGHT_GRAY_2} />
-            </Section> */}
         </Layout>
     );
 };
