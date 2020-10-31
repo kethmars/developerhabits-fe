@@ -1,5 +1,5 @@
-export const headerMenu = [
-    {
+// Categories
+export const headerMenu = [{
         link: '/growth-mindset',
         text: '#growthMindset',
     },
