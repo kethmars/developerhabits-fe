@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { useEffect } from 'react';
 
 import useIsMobile from '../utils/is-mobile';
 
@@ -32,6 +33,14 @@ const FeaturedArticleSection = ({ isMobile, featuredArticle }) =>
     );
 
 const IndexPage = ({ data }) => {
+    useEffect(() => {
+      if (window?.location?.pathname?.startsWith("youtube")) {
+        window.location.replace(
+          'https://www.youtube.com/channel/UCJLZwePkNHps5Bv7VwISyTA'
+        );
+      };
+    }, []); 
+
     const isMobile = useIsMobile();
     const featuredArticles = data?.featured?.nodes;
 
